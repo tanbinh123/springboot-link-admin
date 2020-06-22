@@ -7,23 +7,9 @@ springboot-link-admin 提供一个权限认证后端接口解决方案，它基�
 
 
  <p align="center">
-  <img width="900" src="https://252956.github.io/assets/img/1.png">
+  <img width="900" src="https://252956.github.io/static/img/1.png">
 </p>
- <p align="center">
-  <img width="900" src="https://252956.github.io/assets/img/2.png">
-</p>
- <p align="center">
-  <img width="900" src="https://252956.github.io/assets/img/3.png">
-</p>
- <p align="center">
-  <img width="900" src="https://252956.github.io/assets/img/4.png">
-</p>
- <p align="center">
-  <img width="900" src="https://252956.github.io/assets/img/5.png">
-</p>
- <p align="center">
-  <img width="900" src="https://252956.github.io/assets/img/6.png">
-</p>
+
 
 
 ## 前序准备
@@ -47,13 +33,13 @@ git clone https://github.com/252956/springboot-link-admin.git
 运行 App.java
 ```
 
-浏览器访问 http://localhost:8888/helloword.html
+浏览器访问 http://localhost:8888/
 
 
 ## 加入讨论组
 
  <p align="left">
-  <img width="300" src="https://252956.github.io/assets/img/dingding.jpg">
+  <img width="300" src="https://252956.github.io/static/img/dingding.jpg">
 </p>
 
 
