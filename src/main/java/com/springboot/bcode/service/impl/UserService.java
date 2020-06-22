@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONArray;
 import com.springboot.bcode.dao.IUserDao;
 import com.springboot.bcode.domain.auth.Department;
 import com.springboot.bcode.domain.auth.Job;
@@ -25,16 +26,19 @@ import com.springboot.bcode.service.IJobService;
 import com.springboot.bcode.service.IPermissionService;
 import com.springboot.bcode.service.IRoleService;
 import com.springboot.bcode.service.IUserService;
+import com.springboot.common.AppContext;
 import com.springboot.common.AppToken;
 import com.springboot.common.GlobalUser;
 import com.springboot.common.algorithm.DepartmentAlgorithm;
 import com.springboot.common.algorithm.PermissionAlgorithm;
 import com.springboot.common.constant.DataScopeType;
 import com.springboot.common.exception.AuthException;
+import com.springboot.common.exception.SystemException;
 import com.springboot.common.utils.BeanUtils;
 import com.springboot.common.utils.MD5Utils;
 import com.springboot.common.utils.StringUtils;
 import com.springboot.common.utils.UUIDUtils;
+import com.springboot.core.redis.RedisUtils;
 import com.springboot.core.web.mvc.JqGridPage;
 
 @Service
@@ -97,16 +101,30 @@ public class UserService implements IUserService {
 		if (user == null) {
 			throw new AuthException("用户未登录");
 		}
+
+		// 获取当前用户的所属公司
+		Department company = DepartmentAlgorithm.findCompany(user.getDeptid(),
+				JSONArray.parseArray(
+						RedisUtils.getRedis().get(AppContext.Department_Key),
+						Department.class));
+		if (company == null) {
+			throw new SystemException("未查询到当前用户的所属公司");
+		}
+		user.setCompanyId(company.getId());
+		user.setCompanyName(company.getName());
+
 		// 部门
 		Department dept = departmentService.query(user.getDeptid());
 		if (dept == null) {
 			throw new AuthException("未查询到当前用户的部门");
 		}
 		user.setDeptName(dept.getName());
-		// 岗位
-		Job job = jobService.find(user.getJobid());
-		if (job != null) {
-			user.setJobName(job.getName());
+		if (user.getJobid() != null) {
+			// 岗位
+			Job job = jobService.find(user.getJobid());
+			if (job != null) {
+				user.setJobName(job.getName());
+			}
 		}
 		// 角色
 		List<Role> roles = roleService.queryByUser(user.getUid());
@@ -127,21 +145,16 @@ public class UserService implements IUserService {
 		}
 		// 用户菜单
 		List<Permission> menus = new ArrayList<Permission>();
-		// 用户拥有的功能权限
-		List<Permission> permissions = new ArrayList<Permission>();
 		for (Permission perm : permissionList) {
 			if (perm.isMenu()) {
 				menus.add(perm);
-			}
-			if (perm.isPermission()) {
-				permissions.add(perm);
 			}
 		}
 		menus = PermissionAlgorithm.tree(menus);
 
 		user.setRoles(roles);
 		user.setMenus(PermissionAlgorithm.buildMenu(menus));
-		user.setPermissions(permissions);
+		user.setPermissions(permissionList);
 		user.setDatascope(getDataScope(user));
 		user.setDatascopes(getDataScopes(user));
 		GlobalUser.setUserInfo(user);
@@ -176,11 +189,12 @@ public class UserService implements IUserService {
 	 */
 	private List<Integer> getDataScopes(UserInfo user) {
 		List<Integer> dataScopeList = new ArrayList<Integer>();
-		List<Department> deptAllList = departmentService.queryAll();
+		List<Department> allDeptList = JSONArray.parseArray(RedisUtils
+				.getRedis().get(AppContext.Department_Key), Department.class);
 		for (Role role : user.getRoles()) {
 			// 1全部数据权限
 			if (DataScopeType.all.equals(role.getData_scope())) {
-				for (Department dept : deptAllList) {
+				for (Department dept : allDeptList) {
 					dataScopeList.add(dept.getId());
 				}
 				// 2用户自定义数据权限
@@ -189,11 +203,9 @@ public class UserService implements IUserService {
 				// 3本部门及以下数据权限
 			} else if (DataScopeType.deptAndBelow.equals(role.getData_scope())) {
 				List<Department> findSelfAndAllChild = DepartmentAlgorithm
-						.findSelfAndAllChild(user.getDeptid(), deptAllList);
+						.findSelfAndAllChild(user.getDeptid(), allDeptList);
 				for (Department dept : findSelfAndAllChild) {
-					if (!dataScopeList.contains(dept.getId().toString())) {
-						dataScopeList.add(dept.getId());
-					}
+					dataScopeList.add(dept.getId());
 				}
 				// 4本部门数据权限
 			} else if (DataScopeType.dept.equals(role.getData_scope())) {

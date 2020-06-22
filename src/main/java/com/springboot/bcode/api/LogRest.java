@@ -26,7 +26,7 @@ public class LogRest extends BaseRest {
 	@Autowired
 	private ILogService logService;
 
-	@Requestauthorize
+	@Requestauthorize("blog:list")
 	@RequestMapping(value = "/blog/list", method = RequestMethod.POST)
 	public ResponseResult list(@RequestBody BLogVO vo) {
 		ResponseResult rep = new ResponseResult();

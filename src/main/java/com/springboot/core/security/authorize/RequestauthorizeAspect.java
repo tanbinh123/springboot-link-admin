@@ -14,8 +14,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.springboot.bcode.domain.auth.Permission;
 import com.springboot.bcode.domain.auth.UserInfo;
@@ -23,6 +21,7 @@ import com.springboot.common.AppContext;
 import com.springboot.common.GlobalUser;
 import com.springboot.common.utils.HttpUtils;
 import com.springboot.common.utils.IPUtils;
+import com.springboot.common.utils.StringUtils;
 import com.springboot.core.logger.LoggerUtil;
 
 /**
@@ -53,10 +52,13 @@ public class RequestauthorizeAspect {
 			return pjp.proceed();
 		}
 
-		ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder
-				.getRequestAttributes();
+		String value = limt.value();
+		if (StringUtils.isBlank(value)) {
+			return pjp.proceed();
+		}
+
 		HttpServletRequest request = HttpUtils.getRequest();
-		HttpServletResponse response = requestAttributes.getResponse();
+		HttpServletResponse response = HttpUtils.getResponse();
 
 		UserInfo userInfo = GlobalUser.getUserInfo();
 		if (userInfo == null) {
@@ -81,7 +83,7 @@ public class RequestauthorizeAspect {
 		List<Permission> permissions = userInfo.getPermissions();
 		if (permissions == null || permissions.isEmpty()) {
 			try {
-				LoggerUtil.warn("用户IP[" + ip + "]访问地址[" + url + "]暂无权限");
+				LoggerUtil.warn("用户IP[" + ip + "]访问地址[" + url + "]暂未分配任何权限");
 				return returnAuthorizeRequests(request, response);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -89,7 +91,7 @@ public class RequestauthorizeAspect {
 		} else {
 			boolean hasPermission = false;
 			for (Permission perm : permissions) {
-				if (url.equals(perm.getUrl())) {
+				if (value.equals(perm.getPermissionFlag())) {
 					hasPermission = true;
 					break;
 				}

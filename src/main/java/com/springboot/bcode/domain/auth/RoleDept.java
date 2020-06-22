@@ -12,7 +12,7 @@ import com.springboot.core.jdbc.annotation.Tables;
  * @date 2019年10月24日 下午2:06:14
  *
  */
-@Tables(table = "t_web_role_dept")
+@Tables(table = "t_sys_role_dept")
 public class RoleDept {
 
 	@Columns(column = "role_id")

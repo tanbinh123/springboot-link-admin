@@ -27,9 +27,9 @@ public class DictDao extends BaseDaoImpl implements IDictDao {
 	private String pageSql(Dict dict, int type) {
 		StringBuilder sql = new StringBuilder();
 		if (type == 0) {
-			sql.append("select * from t_web_dict");
+			sql.append("select * from t_sys_dict");
 		} else {
-			sql.append("select count(*) from t_web_dict");
+			sql.append("select count(*) from t_sys_dict");
 		}
 		sql.append(" where 1=1");
 

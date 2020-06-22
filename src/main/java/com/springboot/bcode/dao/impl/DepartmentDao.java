@@ -13,7 +13,7 @@ public class DepartmentDao extends BaseDaoImpl implements IDepartmentDao {
 
 	@Override
 	public List<Department> selectAll() {
-		String sql = "SELECT id,name,  parent_id as parentId,levels,for_service as forService,sorts from t_web_dept r where deleted=0  order by sorts asc ";
+		String sql = "SELECT id,name,  parent_id as parentId,levels,for_service as forService,sorts from t_sys_dept r where deleted=0  order by sorts asc ";
 		return super.select(sql, Department.class);
 	}
 
@@ -24,7 +24,7 @@ public class DepartmentDao extends BaseDaoImpl implements IDepartmentDao {
 
 	@Override
 	public List<Department> findChild(Integer parentId) {
-		String sql = "SELECT id,name,  parent_id as parentId,levels,for_service as forService,sorts,(SELECT top 1 tmp1.name  FROM t_web_dept as tmp1 WHERE tmp1.parent_id=r.id )  as tmpChildName from t_web_dept r where r.parent_id=? order by sorts asc ";
+		String sql = "SELECT id,name,  parent_id as parentId,levels,for_service as forService,sorts,(SELECT top 1 tmp1.name  FROM t_sys_dept as tmp1 WHERE tmp1.parent_id=r.id )  as tmpChildName from t_sys_dept r where r.parent_id=? order by sorts asc ";
 		return super.select(sql, new Object[] { parentId }, Department.class);
 	}
 

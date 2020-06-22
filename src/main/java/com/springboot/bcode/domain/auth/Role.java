@@ -13,7 +13,7 @@ import com.springboot.core.web.mvc.JqGridParam;
  * @date 2019年10月23日 下午2:25:23
  *
  */
-@Tables(table = "t_web_role")
+@Tables(table = "t_sys_role")
 public class Role extends JqGridParam {
 
 	@Columns(column = "id", primaryKey = true)

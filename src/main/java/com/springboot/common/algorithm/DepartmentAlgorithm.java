@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.springboot.bcode.domain.auth.Department;
+import com.springboot.common.utils.BeanUtils;
 
 /**
  * 部门类相关算法
@@ -24,16 +25,12 @@ public class DepartmentAlgorithm {
 	 * @return void 返回类型
 	 *
 	 */
-	/*public static void mergeRepeat(List<Department> allList) {
-		if (allList == null || allList.isEmpty()) {
-			return;
-		}
-		Set<Department> ownedSet = new HashSet<Department>();
-		for (Department dept : allList) {
-			ownedSet.add(dept);
-		}
-		allList = new ArrayList<Department>(ownedSet);
-	}*/
+	/*
+	 * public static void mergeRepeat(List<Department> allList) { if (allList ==
+	 * null || allList.isEmpty()) { return; } Set<Department> ownedSet = new
+	 * HashSet<Department>(); for (Department dept : allList) {
+	 * ownedSet.add(dept); } allList = new ArrayList<Department>(ownedSet); }
+	 */
 
 	/**
 	 * 递归将数据tree存储结构
@@ -160,4 +157,31 @@ public class DepartmentAlgorithm {
 		return resultList;
 	}
 
+	/**
+	 * 根据部门id查询公司
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public static Department findCompany(Integer id, List<Department> allList) {
+		if (allList == null || allList.isEmpty() || id == null) {
+			return null;
+		}
+		Department target = new Department();
+		findCompany(allList, id, target);
+		return target;
+	}
+
+	private static void findCompany(List<Department> allList, Integer parentId,
+			Department target) {
+		for (Department dept : allList) {
+			if (dept.getId().equals(parentId)) {
+				if (dept.getLevels().equals(1) || dept.getLevels().equals(0)) {
+					BeanUtils.copyObject(target, dept);
+					break;
+				}
+				findCompany(allList, dept.getParentId(), target);
+			}
+		}
+	}
 }

@@ -7,6 +7,10 @@ import com.springboot.bcode.domain.auth.Department;
 public interface IDepartmentService {
 	List<Department> queryAll();
 
+	List<Department> queryAllCompany();
+
+	List<Department> queryAllChild(Integer parentId);
+
 	/**
 	 * 查询部门信息
 	 * 

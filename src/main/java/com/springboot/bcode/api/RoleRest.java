@@ -66,7 +66,7 @@ public class RoleRest extends BaseRest {
 	 * @param role
 	 * @return
 	 */
-	@Requestauthorize
+	@Requestauthorize("role:add")
 	@OpertionBLog(title = "新增角色")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public ResponseResult add(@RequestBody Role role) {
@@ -90,7 +90,7 @@ public class RoleRest extends BaseRest {
 	 * @param role
 	 * @return
 	 */
-	@Requestauthorize
+	@Requestauthorize("role:edit")
 	@OpertionBLog(title = "修改角色")
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public ResponseResult update(@RequestBody Role role) {
@@ -113,7 +113,7 @@ public class RoleRest extends BaseRest {
 	 * @param id
 	 * @return
 	 */
-	@Requestauthorize
+	@Requestauthorize("role:del")
 	@OpertionBLog(title = "删除角色")
 	@RequestMapping(value = "delete")
 	public ResponseResult delete(@RequestParam("id") Integer id) {
@@ -136,9 +136,9 @@ public class RoleRest extends BaseRest {
 	 * @param roleRelationRightVO
 	 * @return
 	 */
+	@Requestauthorize("role:datascope")
 	@OpertionBLog(title = "角色分配数据权限")
 	@RequestMapping(value = "saveDataScope", method = RequestMethod.POST)
-	@Requestauthorize
 	public ResponseResult saveDataScope(@RequestBody Role role) {
 		ResponseResult rep = new ResponseResult();
 		try {

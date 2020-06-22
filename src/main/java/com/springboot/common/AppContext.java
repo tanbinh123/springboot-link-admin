@@ -11,6 +11,8 @@ package com.springboot.common;
 public class AppContext {
 
 	public static final String TOKEN = "LinkAdmin-Token";
+	
+	public static final String Department_Key = "department_key";
 	// ok
 	public static final int CODE_20000 = 20000;
 	// error

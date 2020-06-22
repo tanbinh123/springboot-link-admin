@@ -28,9 +28,9 @@ public class JobDao extends BaseDaoImpl implements IJobDao {
 	private String pageSql(Job job, int type) {
 		StringBuilder sql = new StringBuilder();
 		if (type == 0) {
-			sql.append("select * from t_web_job ");
+			sql.append("select * from t_sys_job ");
 		} else {
-			sql.append("select count(*) from t_web_job ");
+			sql.append("select count(*) from t_sys_job ");
 		}
 		sql.append(" where 1=1");
 
@@ -61,7 +61,7 @@ public class JobDao extends BaseDaoImpl implements IJobDao {
 	@Override
 	public List<Job> selectAll() {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select * from t_web_job where state=1 order by sorts asc");
+		sql.append("select * from t_sys_job where state=1 order by sorts asc");
 		return super.select(sql.toString(), Job.class);
 	}
 
@@ -77,7 +77,7 @@ public class JobDao extends BaseDaoImpl implements IJobDao {
 	@Override
 	public Job selectOne(Integer id) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select * from t_web_job where state=1 and id="+id+"");
+		sql.append("select * from t_sys_job where state=1 and id="+id+"");
 		return super.selectOne(sql.toString(), Job.class);
 	}
 
@@ -99,7 +99,7 @@ public class JobDao extends BaseDaoImpl implements IJobDao {
 	@Override
 	public int updateState(Integer id, int state) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("update t_web_job set state=? where id=?");
+		sql.append("update t_sys_job set state=? where id=?");
 		return super.insertOrUpdateOrDelete(sql.toString(), new Object[] { state,
 				id });
 	}

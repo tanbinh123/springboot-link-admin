@@ -65,7 +65,7 @@ public class JobRest extends BaseRest {
 	}
 	
 	@OpertionBLog(title = "添加岗位")
-	@Requestauthorize
+	@Requestauthorize("job:add")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public ResponseResult add(@RequestBody Job job) {
 		ResponseResult rep = new ResponseResult();
@@ -82,7 +82,7 @@ public class JobRest extends BaseRest {
 	}
 
 	@OpertionBLog(title = "修改岗位")
-	@Requestauthorize
+	@Requestauthorize("job:edit")
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public ResponseResult update(@RequestBody Job job) {
 		ResponseResult rep = new ResponseResult();
@@ -100,7 +100,7 @@ public class JobRest extends BaseRest {
 
 	
 	@OpertionBLog(title = "删除岗位")
-	@Requestauthorize
+	@Requestauthorize("job:del")
 	@RequestMapping(value = "delete")
 	public ResponseResult delete(@RequestParam("id") Integer id) {
 		ResponseResult rep = new ResponseResult();

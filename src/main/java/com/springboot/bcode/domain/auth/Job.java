@@ -13,7 +13,7 @@ import com.springboot.core.web.mvc.JqGridParam;
  * @date 2019年11月21日 上午11:18:46
  *
  */
-@Tables(table = "t_web_job")
+@Tables(table = "t_sys_job")
 public class Job extends JqGridParam {
 
 	// Fields

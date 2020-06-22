@@ -29,13 +29,13 @@ public class UserDao extends BaseDaoImpl implements IUserDao {
 	private String userPageSql(UserInfo user, int type) {
 		StringBuilder sql = new StringBuilder();
 		if (type == 0) {
-			sql.append(" select  u.uid,u.name,u.vsername,u.password,u.mobile,u.createTime,u.state,u.deptid,d.name as deptName,u.jobid,j.name as jobName from t_web_user u  ");
-			sql.append(" left join t_web_dept d on d.id=u.deptid ");
-			sql.append(" left join t_web_job j on j.id=u.jobid ");
+			sql.append(" select  u.uid,u.name,u.vsername,u.password,u.mobile,u.createTime,u.state,u.deptid,d.name as deptName,u.jobid,j.name as jobName from t_sys_user u  ");
+			sql.append(" left join t_sys_dept d on d.id=u.deptid ");
+			sql.append(" left join t_sys_job j on j.id=u.jobid ");
 		} else {
-			sql.append(" select count(*) from t_web_user u  ");
-			sql.append(" left join t_web_dept d on d.id=u.deptid ");
-			sql.append(" left join t_web_job j on j.id=u.jobid ");
+			sql.append(" select count(*) from t_sys_user u  ");
+			sql.append(" left join t_sys_dept d on d.id=u.deptid ");
+			sql.append(" left join t_sys_job j on j.id=u.jobid ");
 		}
 		sql.append(" where 1=1");
 
@@ -105,11 +105,11 @@ public class UserDao extends BaseDaoImpl implements IUserDao {
 	@Override
 	public UserInfo select(String id) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select u.uid,u.name,u.password,u.vsername,u.mobile,u.createTime,u.state,d.id as deptid,d.name as deptName,j.name as jobName from t_web_user u");
-		// sql.append(" left join t_web_user_role ur on ur.user_id=u.uid");
-		// sql.append(" left join t_web_role r on r.id=ur.role_id");
-		sql.append(" left join t_web_dept d on d.id=u.deptid");
-		sql.append(" left join t_web_job j on j.id=u.jobid ");
+		sql.append("select u.uid,u.name,u.password,u.vsername,u.mobile,u.createTime,u.state,d.id as deptid,d.name as deptName,j.name as jobName from t_sys_user u");
+		// sql.append(" left join t_sys_user_role ur on ur.user_id=u.uid");
+		// sql.append(" left join t_sys_role r on r.id=ur.role_id");
+		sql.append(" left join t_sys_dept d on d.id=u.deptid");
+		sql.append(" left join t_sys_job j on j.id=u.jobid ");
 		sql.append(" where u.uid='" + id + "'");
 		List<UserInfo> list = super
 				.select(sql.toString(), null, UserInfo.class);
@@ -132,7 +132,7 @@ public class UserDao extends BaseDaoImpl implements IUserDao {
 	@Override
 	public int updateState(String uid, int state) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("update t_web_user set state=? where uid=?");
+		sql.append("update t_sys_user set state=? where uid=?");
 		return super.insertOrUpdateOrDelete(sql.toString(), new Object[] { state,
 				uid });
 	}

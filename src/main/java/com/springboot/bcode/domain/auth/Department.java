@@ -5,7 +5,7 @@ import java.util.List;
 import com.springboot.core.jdbc.annotation.Columns;
 import com.springboot.core.jdbc.annotation.Tables;
 
-@Tables(table = "t_web_dept")
+@Tables(table = "t_sys_dept")
 public class Department implements Comparable<Department> {
 
 	// Fields

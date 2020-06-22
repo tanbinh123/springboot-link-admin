@@ -1,4 +1,3 @@
-
 package com.springboot.bcode.domain.auth;
 
 import java.util.List;
@@ -6,7 +5,7 @@ import java.util.List;
 import com.springboot.core.jdbc.annotation.Columns;
 import com.springboot.core.jdbc.annotation.Tables;
 
-@Tables(table = "t_web_permission")
+@Tables(table = "t_sys_permission")
 public class Permission implements Comparable<Permission> {
 
 	@Columns(column = "id", primaryKey = true)
@@ -15,8 +14,10 @@ public class Permission implements Comparable<Permission> {
 	private Integer parentId;
 	@Columns(column = "name")
 	private String name;
+	@Columns(column = "permission_flag")
+	private String permissionFlag; // 权限标识
 	@Columns(column = "types")
-	private Integer types; //0目录 '1:菜单，2:按钮',
+	private Integer types; // 0目录 '1:菜单，2:按钮',
 	@Columns(column = "state")
 	private Integer state;
 	@Columns(column = "description")
@@ -28,26 +29,25 @@ public class Permission implements Comparable<Permission> {
 	// 菜单顺序
 	@Columns(column = "sorts")
 	private Integer sorts;
-	
-	
+
 	@Columns(column = "i_frame")
-	private Integer i_frame;//是否外链 0不是，1是
-	
+	private Integer i_frame;// 是否外链 0不是，1是
+
 	@Columns(column = "component_name")
-	private String component_name;//组件名称
-	
+	private String component_name;// 组件名称
+
 	@Columns(column = "component_path")
-	private String component_path;//组件路径
-	
+	private String component_path;// 组件路径
+
 	@Columns(column = "icon")
-	private String icon;//图标
-	
+	private String icon;// 图标
+
 	@Columns(column = "cache")
-	private Integer cache;//是否缓存 0:不是 1是
-	
+	private Integer cache;// 是否缓存 0:不是 1是
+
 	@Columns(column = "hidden")
-	private Integer hidden;//是否隐藏0:不是 1是
-	
+	private Integer hidden;// 是否隐藏0:不是 1是
+
 	// 子权限集合
 	private List<Permission> childrens;
 
@@ -71,7 +71,6 @@ public class Permission implements Comparable<Permission> {
 		}
 		return false;
 	}
-
 
 	public String getUrl() {
 		return url;
@@ -210,7 +209,6 @@ public class Permission implements Comparable<Permission> {
 		return -1;
 	}
 
-
 	public String getComponent_name() {
 		return component_name;
 	}
@@ -259,5 +257,12 @@ public class Permission implements Comparable<Permission> {
 		this.hidden = hidden;
 	}
 
-	
+	public String getPermissionFlag() {
+		return permissionFlag;
+	}
+
+	public void setPermissionFlag(String permissionFlag) {
+		this.permissionFlag = permissionFlag;
+	}
+
 }

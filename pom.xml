@@ -113,7 +113,7 @@
 		<repository>
 			<id>link-admin</id>
 			<name>link-admin Repository</name>
-			<url>http://repo1.maven.apache.org/maven2/</url>
+			<url>https://repo1.maven.org/maven2/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>

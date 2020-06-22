@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.bcode.domain.auth.LoginVO;
@@ -90,7 +91,7 @@ public class UserRest extends BaseRest {
 		return rep;
 	}
 
-	@Requestauthorize
+	@Requestauthorize("user:list")
 	@RequestMapping(value = "list", method = RequestMethod.POST)
 	public ResponseResult list(@RequestBody UserInfo user) {
 		ResponseResult rep = new ResponseResult();
@@ -108,7 +109,7 @@ public class UserRest extends BaseRest {
 	}
 
 	@OpertionBLog(title = "添加用户")
-	@Requestauthorize
+	@Requestauthorize("user:add")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public ResponseResult add(@RequestBody UserInfoVO user) {
 		ResponseResult rep = new ResponseResult();
@@ -125,7 +126,7 @@ public class UserRest extends BaseRest {
 	}
 
 	@OpertionBLog(title = "修改用户")
-	@Requestauthorize
+	@Requestauthorize("user:edit")
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public ResponseResult update(@RequestBody UserInfoVO user) {
 		ResponseResult rep = new ResponseResult();
@@ -140,7 +141,26 @@ public class UserRest extends BaseRest {
 		}
 		return rep;
 	}
+	
+	@OpertionBLog(title = "删除用户")
+	@Requestauthorize("user:del")
+	@RequestMapping(value = "delete")
+	public ResponseResult delete(@RequestParam("uid") String uid) {
+		ResponseResult rep = new ResponseResult();
+		try {
+			userService.delete(uid);
+		} catch (AuthException e) {
+			rep.setCode(CODE_500);
+			rep.setMsg(e.getMessage());
+		} catch (Exception e) {
+			rep.setCode(CODE_500);
+			rep.setMsg("修改异常.请稍后再试");
+		}
+		return rep;
+	}
 
+	
+	
 	@OpertionBLog(title = "修改密码")
 	@RequestMapping(value = "modifyPwd", method = RequestMethod.POST)
 	public ResponseResult modifyPwd(@RequestBody ModifyPwdVO vo) {

@@ -36,7 +36,7 @@ public class DepartmentRest extends BaseRest {
 	 * 
 	 * @return
 	 */
-	@Requestauthorize
+	@Requestauthorize("dept:list")
 	@RequestMapping(value = "all")
 	public ResponseResult queryAll() {
 		ResponseResult rep = new ResponseResult();
@@ -58,7 +58,7 @@ public class DepartmentRest extends BaseRest {
 	 * @param dept
 	 * @return
 	 */
-	@Requestauthorize
+	@Requestauthorize("dept:add")
 	@OpertionBLog(title = "新增部门")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public ResponseResult add(@RequestBody Department dept) {
@@ -82,7 +82,7 @@ public class DepartmentRest extends BaseRest {
 	 * @param dept
 	 * @return
 	 */
-	@Requestauthorize
+	@Requestauthorize("dept:edit")
 	@OpertionBLog(title = "修改部门")
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public ResponseResult update(@RequestBody Department dept) {
@@ -105,7 +105,7 @@ public class DepartmentRest extends BaseRest {
 	 * @param id
 	 * @return
 	 */
-	@Requestauthorize
+	@Requestauthorize("dept:del")
 	@OpertionBLog(title = "删除部门")
 	@RequestMapping(value = "delete")
 	public ResponseResult delete(@RequestParam("id") Integer id) {

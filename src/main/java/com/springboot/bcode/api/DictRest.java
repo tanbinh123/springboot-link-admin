@@ -68,7 +68,7 @@ public class DictRest extends BaseRest {
 	 * @return
 	 */
 	@OpertionBLog(title = "新增字典")
-	@Requestauthorize
+	@Requestauthorize("dict:add")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public ResponseResult add(@RequestBody Dict dict) {
 		ResponseResult rep = new ResponseResult();
@@ -92,7 +92,7 @@ public class DictRest extends BaseRest {
 	 * @return
 	 */
 	@OpertionBLog(title = "修改字典")
-	@Requestauthorize
+	@Requestauthorize("dict:edit")
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public ResponseResult update(@RequestBody Dict dict) {
 		ResponseResult rep = new ResponseResult();
@@ -115,7 +115,7 @@ public class DictRest extends BaseRest {
 	 * @return
 	 */
 	@OpertionBLog(title = "删除字典")
-	@Requestauthorize
+	@Requestauthorize("dict:del")
 	@RequestMapping(value = "delete")
 	public ResponseResult delete(@RequestParam("id") Integer id) {
 		ResponseResult rep = new ResponseResult();

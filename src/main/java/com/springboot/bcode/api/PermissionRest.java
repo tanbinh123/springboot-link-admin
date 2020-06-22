@@ -38,7 +38,7 @@ public class PermissionRest extends BaseRest {
 	 * 
 	 * @return
 	 */
-	@Requestauthorize
+	@Requestauthorize("permission:list")
 	@RequestMapping(value = "all")
 	public ResponseResult queryAll() {
 		ResponseResult rep = new ResponseResult();
@@ -79,7 +79,7 @@ public class PermissionRest extends BaseRest {
 		return rep;
 	}
 
-	@Requestauthorize
+	@Requestauthorize("permission:add")
 	@OpertionBLog(title = "新增权限")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public ResponseResult add(@RequestBody Permission permission) {
@@ -97,7 +97,7 @@ public class PermissionRest extends BaseRest {
 		return rep;
 	}
 
-	@Requestauthorize
+	@Requestauthorize("permission:edit")
 	@OpertionBLog(title = "修改权限")
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public ResponseResult update(@RequestBody Permission right) {
@@ -114,7 +114,7 @@ public class PermissionRest extends BaseRest {
 		return rep;
 	}
 
-	@Requestauthorize
+	@Requestauthorize("permission:del")
 	@OpertionBLog(title = "删除权限")
 	@RequestMapping(value = "delete")
 	public ResponseResult delete(@RequestParam("id") Integer id) {

@@ -7,7 +7,7 @@ import com.springboot.core.jdbc.annotation.Columns;
 import com.springboot.core.jdbc.annotation.Tables;
 import com.springboot.core.web.mvc.JqGridParam;
 
-@Tables(table = "t_web_user")
+@Tables(table = "t_sys_user")
 public class UserInfo extends JqGridParam {
 
 	@Columns(column = "uid", primaryKey = true, autoIncrement = false)
@@ -34,6 +34,9 @@ public class UserInfo extends JqGridParam {
 	private String introduction = "hello word";
 
 	private String token;
+
+	private Integer companyId;// 公司id
+	private String companyName;// 部门对应的总节点部门（分公司，，集团）
 	private String deptName;// 部门名称
 	private String jobName;// 岗位名称
 	// 角色
@@ -41,7 +44,7 @@ public class UserInfo extends JqGridParam {
 
 	// 用户的菜单
 	private List<MenuVO> menus;
-	// 用户拥有的功能权限
+	// 用户拥有的权限
 	private List<Permission> permissions;
 
 	// 数据权限范围（1：全部数据权限 2：自定数据权限 3：本部门及以下数据权限4：本部门数据权限 5：本人）
@@ -207,6 +210,22 @@ public class UserInfo extends JqGridParam {
 
 	public void setDatascope(Integer datascope) {
 		this.datascope = datascope;
+	}
+
+	public Integer getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 
 }

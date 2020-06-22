@@ -5,7 +5,7 @@ import java.util.Date;
 import com.springboot.core.jdbc.annotation.Columns;
 import com.springboot.core.jdbc.annotation.Tables;
 
-@Tables(table = "t_web_logs")
+@Tables(table = "t_sys_logs")
 public class BLog {
 	@Columns(column = "id", primaryKey = true)
 	private String id;

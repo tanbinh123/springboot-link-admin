@@ -20,6 +20,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.springboot.common.AppContext;
 import com.springboot.common.utils.HttpUtils;
 import com.springboot.common.utils.IPUtils;
+import com.springboot.core.logger.LoggerUtil;
 import com.springboot.core.redis.IRedis;
 import com.springboot.core.redis.RedisUtils;
 
@@ -78,7 +79,7 @@ public class RequestLimitAspect {
 			nowCount++;
 			redis.set(key, String.valueOf(nowCount));
 			if (nowCount >= count) {
-				System.out.println("用户IP[" + ip + "]访问地址[" + url + "]访问次数["
+				LoggerUtil.warn("用户IP[" + ip + "]访问地址[" + url + "]访问次数["
 						+ nowCount + "]超过了限定的次数[" + count + "]限定时间[" + waits
 						+ "秒]");
 				redis.expire(key, waits, TimeUnit.SECONDS);

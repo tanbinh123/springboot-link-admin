@@ -13,7 +13,7 @@ import com.springboot.core.web.mvc.JqGridParam;
  * @date 2019年10月23日 下午2:39:35
  *
  */
-@Tables(table = "t_web_dict")
+@Tables(table = "t_sys_dict")
 public class Dict extends JqGridParam {
 
 	@Columns(column = "id", primaryKey = true)

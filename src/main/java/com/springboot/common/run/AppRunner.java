@@ -1,8 +1,17 @@
 package com.springboot.common.run;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+
+import com.alibaba.fastjson.JSON;
+import com.springboot.bcode.dao.IDepartmentDao;
+import com.springboot.bcode.domain.auth.Department;
+import com.springboot.common.AppContext;
+import com.springboot.core.redis.RedisUtils;
 
 /**
  * 服务启动后执行的代码
@@ -16,8 +25,27 @@ import org.springframework.stereotype.Component;
 @Component
 public class AppRunner implements ApplicationRunner {
 
+	@Autowired
+	private IDepartmentDao departmentDao;
+
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
+		loadAllDept();
+	}
+
+	/**
+	 * 将数据库中所有部门加载到redis中
+	 *
+	 * @param 设定文件
+	 * @return void 返回类型
+	 *
+	 */
+	private void loadAllDept() {
+		List<Department> deptList = departmentDao.selectAll();
+		if (deptList != null && !deptList.isEmpty()) {
+			RedisUtils.getRedis().set(AppContext.Department_Key,
+					JSON.toJSONString(deptList));
+		}
 
 	}
 

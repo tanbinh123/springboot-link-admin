@@ -76,7 +76,7 @@ public class PermissionAlgorithm {
 			menuVo.setPath(menuDTO.getUrl());
 			menuVo.setHidden((menuDTO.getHidden() == 1) ? true : false);
 			menuVo.setMeta(new MenuMetaVO(menuDTO.getName(), menuDTO.getIcon(),
-					menuDTO.getCache() == 1 ? true : false));
+					menuDTO.getCache() == 0 ? true : false));
 			menuVo.setRoot((menuDTO.getParentId() == 0) ? true : false);
 			if (menuDTO.getParentId() == 0 || menuDTO.getTypes() == 0) {
 				if (menuDTO.getI_frame() == 0) {
