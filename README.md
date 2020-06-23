@@ -6,27 +6,36 @@ springboot-link-admin 提供一个权限认证后端接口解决方案，它基�
 本项目前端[https://github.com/252956/vue-link-admin]
 
 
- <p align="center">
-  <img width="400" src="https://252956.github.io/static/img/1.png">
-  <img width="400" src="https://252956.github.io/static/img/2.png">
-</p>
- <p align="center">
-  <img width="500" src="https://252956.github.io/static/img/3.png">
-  <img width="500" src="https://252956.github.io/static/img/4.png">
-</p>
- <p align="center">
-  <img width="500" src="https://252956.github.io/static/img/5.png">
-  <img width="500" src="https://252956.github.io/static/img/6.png">
-</p>
- <p align="center">
-  <img width="500" src="https://252956.github.io/static/img/7.png">
-  <img width="500" src="https://252956.github.io/static/img/8.png">
+<p align="center">
+  <img width="900" src="https://252956.github.io/static/img/1.png">
 </p>
 <p align="center">
-  <img width="500" src="https://252956.github.io/static/img/9.png">
-  <img width="500" src="https://252956.github.io/static/img/10.png">
+  <img width="900" src="https://252956.github.io/static/img/2.png">
 </p>
-
+<p align="center">
+  <img width="900" src="https://252956.github.io/static/img/3.png">
+</p>
+<p align="center">
+  <img width="900" src="https://252956.github.io/static/img/4.png">
+</p>
+<p align="center">
+  <img width="900" src="https://252956.github.io/static/img/5.png">
+</p>
+<p align="center">
+  <img width="900" src="https://252956.github.io/static/img/6.png">
+</p>
+<p align="center">
+  <img width="900" src="https://252956.github.io/static/img/7.png">
+</p>
+<p align="center">
+  <img width="900" src="https://252956.github.io/static/img/8.png">
+</p>
+<p align="center">
+  <img width="900" src="https://252956.github.io/static/img/9.png">
+</p>
+<p align="center">
+  <img width="900" src="https://252956.github.io/static/img/10.png">
+</p>
 
 
 ## 前序准备
