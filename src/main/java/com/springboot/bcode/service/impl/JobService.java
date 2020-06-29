@@ -86,7 +86,6 @@ public class JobService implements IJobService {
 
 	@Override
 	public boolean updateState(Job job) {
-
 		if (job.getId() == null) {
 			throw new AuthException("id为空");
 		}

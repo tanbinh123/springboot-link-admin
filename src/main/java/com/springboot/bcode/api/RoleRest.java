@@ -170,4 +170,21 @@ public class RoleRest extends BaseRest {
 		return rep;
 	}
 
+	@OpertionBLog(title = "更新角色状态")
+	@RequestMapping(value = "updateState", method = RequestMethod.POST)
+	public ResponseResult updateState(@RequestBody Role role) {
+		ResponseResult rep = new ResponseResult();
+		try {
+			roleService.updateState(role);
+		} catch (AuthException e) {
+			rep.setCode(CODE_500);
+			rep.setMsg(e.getMessage());
+		} catch (Exception e) {
+			rep.setCode(CODE_500);
+			rep.setMsg("系统异常.请稍后再试");
+		}
+		return rep;
+
+	}
+
 }

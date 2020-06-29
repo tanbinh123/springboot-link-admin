@@ -188,4 +188,13 @@ public class RoleService implements IRoleService {
 		}
 		return roleDao.selectRoleDetp(roleId);
 	}
+
+	@Override
+	public boolean updateState(Role role) {
+		if (role.getId() == null) {
+			throw new AuthException("id为空");
+		}
+		roleDao.updateState(role.getId(), role.getState());
+		return true;
+	}
 }

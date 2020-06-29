@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2020-06-22 14:03:06
+Date: 2020-06-29 13:39:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -65,7 +65,7 @@ CREATE TABLE `t_sys_dict` (
   `sorts` int(11) unsigned DEFAULT '1' COMMENT ' 顺序 ',
   `description` varchar(400) DEFAULT NULL COMMENT '数据描述',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t_sys_dict
@@ -86,7 +86,7 @@ CREATE TABLE `t_sys_job` (
   `state` int(1) DEFAULT NULL,
   `sorts` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_sys_job
@@ -116,9 +116,11 @@ CREATE TABLE `t_sys_logs` (
   `response_result` varchar(2000) DEFAULT NULL,
   `state` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2053 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2082 DEFAULT CHARSET=utf8;
 
-
+-- ----------------------------
+-- Records of t_sys_logs
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `t_sys_permission`
@@ -171,7 +173,7 @@ INSERT INTO `t_sys_permission` VALUES ('30', '编辑部门', '13', '2', null, '/
 INSERT INTO `t_sys_permission` VALUES ('31', '删除部门', '13', '2', null, '/rest/department/delete', null, null, '243', null, null, null, null, null, null, 'dept:del');
 INSERT INTO `t_sys_permission` VALUES ('32', '系统监控', '0', '0', '0', '/monitor', null, null, '101', null, '', '', 'monitor', '0', '0', null);
 INSERT INTO `t_sys_permission` VALUES ('33', '错误日志', '32', '1', '0', '/monitor/error-log', null, null, '40', null, 'ErrorLog', '/monitor/error-log', null, '0', '0', null);
-INSERT INTO `t_sys_permission` VALUES ('34', '业务日志', '32', '1', '0', '/monitor/blog', null, null, '41', null, 'Blog', '/monitor/blog', null, '0', '0', 'blog/list');
+INSERT INTO `t_sys_permission` VALUES ('34', '业务日志', '32', '1', '0', '/monitor/blog', null, null, '41', null, 'Blog', '/monitor/blog', null, '0', '0', 'blog:list');
 INSERT INTO `t_sys_permission` VALUES ('41', '数据字典', '8', '1', '0', '/permission/dict', null, null, '6', null, 'Dict', '/permission/dict', null, '0', '0', 'dict:list');
 INSERT INTO `t_sys_permission` VALUES ('43', '数据权限', '10', '2', null, '/rest/role/saveDataScope', null, null, '1', null, null, null, null, null, null, 'role:datascope');
 INSERT INTO `t_sys_permission` VALUES ('44', '新增字典', '41', '2', null, '/rest/dict/add', null, null, '1', null, null, null, null, null, null, 'dict:add');
@@ -203,18 +205,19 @@ DROP TABLE IF EXISTS `t_sys_role`;
 CREATE TABLE `t_sys_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
-  `levels` int(11) DEFAULT NULL COMMENT '新增用户时只能赋予比自己级别低的角色',
+  `state` int(11) DEFAULT NULL,
   `data_scope` varchar(11) DEFAULT NULL COMMENT '数据范围（1：全部数据权限 2：自定数据权限 3：本部门及以下数据权限4：本部门数据权限 5：本人）',
+  `levels` int(11) DEFAULT NULL COMMENT '新增用户时只能赋予比自己级别低的角色',
   `description` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_sys_role
 -- ----------------------------
-INSERT INTO `t_sys_role` VALUES ('1', 'admin', null, '1', '超级管理员');
-INSERT INTO `t_sys_role` VALUES ('2', 'editor', null, '2', '系统演示角色');
-INSERT INTO `t_sys_role` VALUES ('11', 'test', null, '5', '测试角色');
+INSERT INTO `t_sys_role` VALUES ('1', 'admin', '1', '1', null, '超级管理员');
+INSERT INTO `t_sys_role` VALUES ('2', 'editor', '0', '2', null, '系统演示角色');
+INSERT INTO `t_sys_role` VALUES ('11', 'test', '0', '5', null, '测试角色111');
 
 -- ----------------------------
 -- Table structure for `t_sys_role_dept`
@@ -241,7 +244,7 @@ CREATE TABLE `t_sys_role_permission` (
   `role_id` int(11) NOT NULL,
   `perm_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2063 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2071 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_sys_role_permission
@@ -322,9 +325,9 @@ INSERT INTO `t_sys_role_permission` VALUES ('2056', '2', '7');
 INSERT INTO `t_sys_role_permission` VALUES ('2057', '2', '14');
 INSERT INTO `t_sys_role_permission` VALUES ('2058', '2', '4');
 INSERT INTO `t_sys_role_permission` VALUES ('2059', '2', '58');
-INSERT INTO `t_sys_role_permission` VALUES ('2060', '11', '14');
-INSERT INTO `t_sys_role_permission` VALUES ('2061', '11', '4');
-INSERT INTO `t_sys_role_permission` VALUES ('2062', '11', '58');
+INSERT INTO `t_sys_role_permission` VALUES ('2063', '11', '14');
+INSERT INTO `t_sys_role_permission` VALUES ('2064', '11', '4');
+INSERT INTO `t_sys_role_permission` VALUES ('2065', '11', '58');
 
 -- ----------------------------
 -- Table structure for `t_sys_user`
@@ -351,7 +354,7 @@ CREATE TABLE `t_sys_user` (
 INSERT INTO `t_sys_user` VALUES ('1', 'admin', 'E10ADC3949BA59ABBE56E057F20F883E', '管理员', '17601269', '2019-09-07 10:08:25', '1', '4', '6', null, null);
 INSERT INTO `t_sys_user` VALUES ('2', 'editor', 'E10ADC3949BA59ABBE56E057F20F883E', '测试员', '666777', '2019-09-09 16:40:43', '1', '16', '5', null, null);
 INSERT INTO `t_sys_user` VALUES ('ad904a794a10434b8dec1de8ce23a288', '辉桑', 'E10ADC3949BA59ABBE56E057F20F883E', '辉桑', '1111111', '2019-09-18 13:47:51', '0', '20', '5', null, null);
-INSERT INTO `t_sys_user` VALUES ('b88bb916dc054870ae124d92710ac3d3', '云桑', 'E10ADC3949BA59ABBE56E057F20F883E', '云桑', '1760126', '2019-09-18 11:11:39', '0', '18', '5', null, null);
+INSERT INTO `t_sys_user` VALUES ('b88bb916dc054870ae124d92710ac3d3', '云桑1', 'E10ADC3949BA59ABBE56E057F20F883E', '云桑1', '1760126', '2019-09-18 11:11:39', '0', '18', '5', '123', null);
 INSERT INTO `t_sys_user` VALUES ('c2bd6773d48643a9ac4540a551ba6ffb', '用嗓', 'E10ADC3949BA59ABBE56E057F20F883E', '用嗓', '222222111', '2019-09-18 15:16:13', '0', '16', '5', null, null);
 
 -- ----------------------------
@@ -363,7 +366,7 @@ CREATE TABLE `t_sys_user_role` (
   `user_id` varchar(32) NOT NULL,
   `role_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_sys_user_role
@@ -385,10 +388,11 @@ INSERT INTO `t_sys_user_role` VALUES ('82', '2a1d17d2f4184e238816fd8b96195a3e', 
 INSERT INTO `t_sys_user_role` VALUES ('87', 'b730512de92c4689a87ed0fdd1e2bffc', '2');
 INSERT INTO `t_sys_user_role` VALUES ('102', '1', '1');
 INSERT INTO `t_sys_user_role` VALUES ('103', '1', '2');
-INSERT INTO `t_sys_user_role` VALUES ('105', 'b88bb916dc054870ae124d92710ac3d3', '2');
 INSERT INTO `t_sys_user_role` VALUES ('106', 'ad904a794a10434b8dec1de8ce23a288', '2');
 INSERT INTO `t_sys_user_role` VALUES ('108', 'c2bd6773d48643a9ac4540a551ba6ffb', '2');
 INSERT INTO `t_sys_user_role` VALUES ('110', '2', '2');
+INSERT INTO `t_sys_user_role` VALUES ('114', 'b88bb916dc054870ae124d92710ac3d3', '2');
+INSERT INTO `t_sys_user_role` VALUES ('116', 'b7ccfe2ef478486f89a944c5a608d90d', '11');
 
 -- ----------------------------
 -- Table structure for `t_video`

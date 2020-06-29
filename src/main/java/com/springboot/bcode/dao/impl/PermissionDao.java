@@ -47,7 +47,7 @@ public class PermissionDao extends BaseDaoImpl implements IPermissionDao {
 
 	@Override
 	public List<Permission> findChild(Integer parentCode) {
-		String sql = "SELECT id,name, parent_id as parentId,types,css,url,levels,sorts,dataScope,permission_flag as permissionFlag (SELECT top 1 tmp1.name  FROM t_sys_right as tmp1 WHERE tmp1.parent_id=r.id )  as tmpChildName from t_sys_right r where r.parent_id=? order by sorts asc ";
+		String sql = "SELECT id,name, parent_id as parentId,types,css,url,levels,sorts,dataScope,permission_flag as permissionFlag, (SELECT top 1 tmp1.name  FROM t_sys_right as tmp1 WHERE tmp1.parent_id=r.id )  as tmpChildName from t_sys_right r where r.parent_id=? order by sorts asc ";
 		return super.select(sql, new Object[] { parentCode }, Permission.class);
 	}
 

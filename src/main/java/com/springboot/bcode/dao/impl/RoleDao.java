@@ -59,7 +59,7 @@ public class RoleDao extends BaseDaoImpl implements IRoleDao {
 	public List<Role> selectByUserId(String userId) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT r.id,r.name,r.data_scope from t_sys_user_role ur INNER JOIN t_sys_role r on ur.role_id=r.id ");
-		sql.append(" where  ur.user_id=? ");
+		sql.append(" where r.state=1 and  ur.user_id=? ");
 
 		return super
 				.select(sql.toString(), new Object[] { userId }, Role.class);
@@ -124,4 +124,11 @@ public class RoleDao extends BaseDaoImpl implements IRoleDao {
 				Integer.class);
 	}
 
+	@Override
+	public int updateState(Integer id, int state) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("update t_sys_role set state=? where id=?");
+		return super.insertOrUpdateOrDelete(sql.toString(), new Object[] {
+				state, id });
+	}
 }

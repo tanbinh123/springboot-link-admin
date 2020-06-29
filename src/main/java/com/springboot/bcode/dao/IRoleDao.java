@@ -34,4 +34,6 @@ public interface IRoleDao {
 
 	List<Integer> selectRoleDetp(Integer roleId);
 
+	int updateState(Integer id, int state);
+
 }

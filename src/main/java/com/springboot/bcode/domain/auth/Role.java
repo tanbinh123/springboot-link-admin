@@ -22,12 +22,13 @@ public class Role extends JqGridParam {
 	private String name;
 	@Columns(column = "levels")
 	private Integer levels;// 新增用户时只能赋予比自己级别低的角色
-
+	@Columns(column = "state")
+	private Integer state;// 角色状态1:正常;0:禁用
 	@Columns(column = "description")
 	private String description;
-
 	@Columns(column = "data_scope")
-	private Integer data_scope;// 数据范围（1：全部数据权限 2：自定数据权限 3：本部门及以下数据权限4：本部门数据权限 5：本人）
+	private Integer data_scope;// 数据范围（1：全部数据权限 2：自定数据权限 3：本部门及以下数据权限4：本部门数据权限
+								// 5：本人）
 	// 自定义数据权限
 	private Integer deptIds[];
 	// 权限id
@@ -87,6 +88,14 @@ public class Role extends JqGridParam {
 
 	public void setDeptIds(Integer[] deptIds) {
 		this.deptIds = deptIds;
+	}
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
 	}
 
 }

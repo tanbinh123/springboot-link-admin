@@ -26,4 +26,6 @@ public interface IRoleService {
 
 	List<Integer> queryDataScope(Integer roleId);
 
+	boolean updateState(Role role);
+
 }

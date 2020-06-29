@@ -29,7 +29,7 @@ public class UserDao extends BaseDaoImpl implements IUserDao {
 	private String userPageSql(UserInfo user, int type) {
 		StringBuilder sql = new StringBuilder();
 		if (type == 0) {
-			sql.append(" select  u.uid,u.name,u.vsername,u.password,u.mobile,u.createTime,u.state,u.deptid,d.name as deptName,u.jobid,j.name as jobName from t_sys_user u  ");
+			sql.append(" select  u.uid,u.name,u.vsername,u.password,u.mobile,u.email,u.createTime,u.state,u.deptid,d.name as deptName,u.jobid,j.name as jobName from t_sys_user u  ");
 			sql.append(" left join t_sys_dept d on d.id=u.deptid ");
 			sql.append(" left join t_sys_job j on j.id=u.jobid ");
 		} else {
