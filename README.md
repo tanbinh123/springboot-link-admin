@@ -62,7 +62,7 @@ git clone https://github.com/252956/springboot-link-admin.git
 ## 加入讨论组
 
  <p align="left">
-  <img width="300" src="https://252956.github.io/static/img/dingding.jpg">
+ 
 </p>
 
 
