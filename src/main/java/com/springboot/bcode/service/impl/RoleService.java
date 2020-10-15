@@ -37,7 +37,9 @@ public class RoleService implements IRoleService {
 
 	@Override
 	public List<Role> queryAll() throws AuthException {
-		return roleDao.select(new Role());
+		Role role=new Role();
+		role.setState(1);
+		return roleDao.select(role);
 	}
 
 	@Override

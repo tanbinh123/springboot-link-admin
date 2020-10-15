@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
+Source Server         : link_admin
 Source Server Version : 50540
 Source Host           : localhost:3306
 Source Database       : link_admin
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2020-06-29 13:39:54
+Date: 2020-10-12 15:39:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -65,7 +65,7 @@ CREATE TABLE `t_sys_dict` (
   `sorts` int(11) unsigned DEFAULT '1' COMMENT ' 顺序 ',
   `description` varchar(400) DEFAULT NULL COMMENT '数据描述',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t_sys_dict
@@ -86,7 +86,7 @@ CREATE TABLE `t_sys_job` (
   `state` int(1) DEFAULT NULL,
   `sorts` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_sys_job
@@ -116,7 +116,7 @@ CREATE TABLE `t_sys_logs` (
   `response_result` varchar(2000) DEFAULT NULL,
   `state` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2082 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2137 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_sys_logs
@@ -144,7 +144,7 @@ CREATE TABLE `t_sys_permission` (
   `hidden` int(11) DEFAULT NULL,
   `permission_flag` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_sys_permission
@@ -187,16 +187,17 @@ INSERT INTO `t_sys_permission` VALUES ('54', '组件', '0', '0', '0', '/componen
 INSERT INTO `t_sys_permission` VALUES ('55', 'pdf', '54', '1', '0', '/component/pdf', null, null, '6', null, 'Pdf', '/component/pdf', '', '0', '0', null);
 INSERT INTO `t_sys_permission` VALUES ('56', 'excel', '54', '0', '0', '/excel', null, null, '7', null, '', '', '', '0', '0', null);
 INSERT INTO `t_sys_permission` VALUES ('57', 'zip', '54', '1', '0', '/component/zip', null, null, '8', null, 'Zip', '/component/zip', '', '0', '0', null);
-INSERT INTO `t_sys_permission` VALUES ('58', '打赏', '0', '1', '1', 'https://252956.github.io/pages/donate.html', null, null, '203', null, '', '', 'donate', '0', '0', null);
+INSERT INTO `t_sys_permission` VALUES ('58', '打赏', '0', '1', '1', 'https://252956.github.io/donate/', null, null, '203', null, '', '', 'donate', '0', '0', null);
 INSERT INTO `t_sys_permission` VALUES ('59', 'upload', '54', '1', '0', '/component/upload', null, null, '4', null, 'Upload', '/component/upload', '', '0', '0', null);
 INSERT INTO `t_sys_permission` VALUES ('62', 'Markdown', '54', '1', '0', '/component/markdown', null, null, '2', null, 'MarkdownDemo', '/component/markdown', '', '0', '0', null);
-INSERT INTO `t_sys_permission` VALUES ('63', 'JSON 编辑器', '54', '1', '0', '/component/json-editor', null, null, '3', null, 'JsonEditorDemo', '/component/json-editor', '', '0', '0', null);
+INSERT INTO `t_sys_permission` VALUES ('63', 'JSON 编辑器', '54', '1', '0', '/component/json-editor', null, null, '3', null, 'JsonEditorDemo', '/component/json-editor', '', '1', '0', null);
 INSERT INTO `t_sys_permission` VALUES ('64', '键盘图表', '54', '1', '0', '/component/keyboard', null, null, '11', null, 'KeyboardChart', '/component/keyboard', '', '0', '0', null);
 INSERT INTO `t_sys_permission` VALUES ('65', '折线图', '54', '1', '0', '/component/line', null, null, '12', null, 'LineChart', '/component/line', '', '0', '0', null);
 INSERT INTO `t_sys_permission` VALUES ('66', '混合图表', '54', '1', '0', '/component/mix-chart', null, null, '13', null, 'MixChart', '/component/mix-chart', '', '0', '0', null);
-INSERT INTO `t_sys_permission` VALUES ('67', '导出 Excel', '56', '1', '0', '/component/excel/export-excel', null, null, '1', null, 'ExportExcel', '/component/excel/export-excel', '', '0', '0', null);
-INSERT INTO `t_sys_permission` VALUES ('68', '导出 已选择项', '56', '1', '0', '/component/excel/select-excel', null, null, '2', null, 'SelectExcel', '/component/excel/select-excel', '', '0', '0', null);
-INSERT INTO `t_sys_permission` VALUES ('69', '导出 多级表头', '56', '1', '0', '/component/excel/merge-header', null, null, '3', null, 'MergeHeader', '/component/excel/merge-header', '', '0', '0', null);
+INSERT INTO `t_sys_permission` VALUES ('67', '导出 Excel', '56', '1', '0', '/component/excel/export-excel', null, null, '1', null, 'ExportExcel', '/component/excel/export-excel', '', '1', '0', null);
+INSERT INTO `t_sys_permission` VALUES ('68', '导出 已选择项', '56', '1', '0', '/component/excel/select-excel', null, null, '2', null, 'SelectExcel', '/component/excel/select-excel', '', '1', '0', null);
+INSERT INTO `t_sys_permission` VALUES ('69', '导出 多级表头', '56', '1', '0', '/component/excel/merge-header', null, null, '3', null, 'MergeHeader', '/component/excel/merge-header', '', '1', '0', null);
+INSERT INTO `t_sys_permission` VALUES ('70', '城市控件', '54', '1', '0', '/component/citycontrol', null, null, '1', null, 'CityControlDemo', '/component/citycontrol', '', '0', '0', '');
 
 -- ----------------------------
 -- Table structure for `t_sys_role`
@@ -210,14 +211,14 @@ CREATE TABLE `t_sys_role` (
   `levels` int(11) DEFAULT NULL COMMENT '新增用户时只能赋予比自己级别低的角色',
   `description` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_sys_role
 -- ----------------------------
 INSERT INTO `t_sys_role` VALUES ('1', 'admin', '1', '1', null, '超级管理员');
-INSERT INTO `t_sys_role` VALUES ('2', 'editor', '0', '2', null, '系统演示角色');
-INSERT INTO `t_sys_role` VALUES ('11', 'test', '0', '5', null, '测试角色111');
+INSERT INTO `t_sys_role` VALUES ('2', 'editor', '1', '2', null, '系统演示角色');
+INSERT INTO `t_sys_role` VALUES ('11', 'test', '1', '5', null, '测试角色111');
 
 -- ----------------------------
 -- Table structure for `t_sys_role_dept`
@@ -244,90 +245,83 @@ CREATE TABLE `t_sys_role_permission` (
   `role_id` int(11) NOT NULL,
   `perm_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2071 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2175 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_sys_role_permission
 -- ----------------------------
-INSERT INTO `t_sys_role_permission` VALUES ('1921', '1', '8');
-INSERT INTO `t_sys_role_permission` VALUES ('1922', '1', '9');
-INSERT INTO `t_sys_role_permission` VALUES ('1924', '1', '17');
-INSERT INTO `t_sys_role_permission` VALUES ('1925', '1', '18');
-INSERT INTO `t_sys_role_permission` VALUES ('1926', '1', '19');
-INSERT INTO `t_sys_role_permission` VALUES ('1927', '1', '10');
-INSERT INTO `t_sys_role_permission` VALUES ('1928', '1', '43');
-INSERT INTO `t_sys_role_permission` VALUES ('1930', '1', '21');
-INSERT INTO `t_sys_role_permission` VALUES ('1931', '1', '22');
-INSERT INTO `t_sys_role_permission` VALUES ('1932', '1', '23');
-INSERT INTO `t_sys_role_permission` VALUES ('1933', '1', '11');
-INSERT INTO `t_sys_role_permission` VALUES ('1935', '1', '25');
-INSERT INTO `t_sys_role_permission` VALUES ('1936', '1', '26');
-INSERT INTO `t_sys_role_permission` VALUES ('1937', '1', '27');
-INSERT INTO `t_sys_role_permission` VALUES ('1938', '1', '13');
-INSERT INTO `t_sys_role_permission` VALUES ('1940', '1', '29');
-INSERT INTO `t_sys_role_permission` VALUES ('1941', '1', '30');
-INSERT INTO `t_sys_role_permission` VALUES ('1942', '1', '31');
-INSERT INTO `t_sys_role_permission` VALUES ('1943', '1', '49');
-INSERT INTO `t_sys_role_permission` VALUES ('1944', '1', '50');
-INSERT INTO `t_sys_role_permission` VALUES ('1945', '1', '51');
-INSERT INTO `t_sys_role_permission` VALUES ('1946', '1', '52');
-INSERT INTO `t_sys_role_permission` VALUES ('1947', '1', '41');
-INSERT INTO `t_sys_role_permission` VALUES ('1948', '1', '44');
-INSERT INTO `t_sys_role_permission` VALUES ('1949', '1', '45');
-INSERT INTO `t_sys_role_permission` VALUES ('1950', '1', '46');
-INSERT INTO `t_sys_role_permission` VALUES ('1951', '1', '32');
-INSERT INTO `t_sys_role_permission` VALUES ('1952', '1', '33');
-INSERT INTO `t_sys_role_permission` VALUES ('1953', '1', '34');
-INSERT INTO `t_sys_role_permission` VALUES ('1955', '1', '54');
-INSERT INTO `t_sys_role_permission` VALUES ('1956', '1', '62');
-INSERT INTO `t_sys_role_permission` VALUES ('1957', '1', '63');
-INSERT INTO `t_sys_role_permission` VALUES ('1958', '1', '59');
-INSERT INTO `t_sys_role_permission` VALUES ('1959', '1', '55');
-INSERT INTO `t_sys_role_permission` VALUES ('1960', '1', '56');
-INSERT INTO `t_sys_role_permission` VALUES ('1961', '1', '67');
-INSERT INTO `t_sys_role_permission` VALUES ('1962', '1', '68');
-INSERT INTO `t_sys_role_permission` VALUES ('1963', '1', '69');
-INSERT INTO `t_sys_role_permission` VALUES ('1964', '1', '57');
-INSERT INTO `t_sys_role_permission` VALUES ('1965', '1', '64');
-INSERT INTO `t_sys_role_permission` VALUES ('1966', '1', '65');
-INSERT INTO `t_sys_role_permission` VALUES ('1967', '1', '66');
-INSERT INTO `t_sys_role_permission` VALUES ('1968', '1', '5');
-INSERT INTO `t_sys_role_permission` VALUES ('1969', '1', '6');
-INSERT INTO `t_sys_role_permission` VALUES ('1970', '1', '7');
-INSERT INTO `t_sys_role_permission` VALUES ('1972', '1', '14');
-INSERT INTO `t_sys_role_permission` VALUES ('1973', '1', '4');
-INSERT INTO `t_sys_role_permission` VALUES ('1974', '1', '58');
-INSERT INTO `t_sys_role_permission` VALUES ('2028', '2', '8');
-INSERT INTO `t_sys_role_permission` VALUES ('2029', '2', '9');
-INSERT INTO `t_sys_role_permission` VALUES ('2031', '2', '10');
-INSERT INTO `t_sys_role_permission` VALUES ('2033', '2', '11');
-INSERT INTO `t_sys_role_permission` VALUES ('2035', '2', '13');
-INSERT INTO `t_sys_role_permission` VALUES ('2037', '2', '49');
-INSERT INTO `t_sys_role_permission` VALUES ('2038', '2', '41');
-INSERT INTO `t_sys_role_permission` VALUES ('2039', '2', '32');
-INSERT INTO `t_sys_role_permission` VALUES ('2040', '2', '33');
-INSERT INTO `t_sys_role_permission` VALUES ('2041', '2', '54');
-INSERT INTO `t_sys_role_permission` VALUES ('2042', '2', '62');
-INSERT INTO `t_sys_role_permission` VALUES ('2043', '2', '63');
-INSERT INTO `t_sys_role_permission` VALUES ('2044', '2', '59');
-INSERT INTO `t_sys_role_permission` VALUES ('2045', '2', '55');
-INSERT INTO `t_sys_role_permission` VALUES ('2046', '2', '56');
-INSERT INTO `t_sys_role_permission` VALUES ('2047', '2', '67');
-INSERT INTO `t_sys_role_permission` VALUES ('2048', '2', '68');
-INSERT INTO `t_sys_role_permission` VALUES ('2049', '2', '69');
-INSERT INTO `t_sys_role_permission` VALUES ('2050', '2', '57');
-INSERT INTO `t_sys_role_permission` VALUES ('2051', '2', '64');
-INSERT INTO `t_sys_role_permission` VALUES ('2052', '2', '65');
-INSERT INTO `t_sys_role_permission` VALUES ('2053', '2', '66');
-INSERT INTO `t_sys_role_permission` VALUES ('2054', '2', '5');
-INSERT INTO `t_sys_role_permission` VALUES ('2055', '2', '6');
-INSERT INTO `t_sys_role_permission` VALUES ('2056', '2', '7');
-INSERT INTO `t_sys_role_permission` VALUES ('2057', '2', '14');
-INSERT INTO `t_sys_role_permission` VALUES ('2058', '2', '4');
-INSERT INTO `t_sys_role_permission` VALUES ('2059', '2', '58');
 INSERT INTO `t_sys_role_permission` VALUES ('2063', '11', '14');
 INSERT INTO `t_sys_role_permission` VALUES ('2064', '11', '4');
 INSERT INTO `t_sys_role_permission` VALUES ('2065', '11', '58');
+INSERT INTO `t_sys_role_permission` VALUES ('2106', '1', '8');
+INSERT INTO `t_sys_role_permission` VALUES ('2107', '1', '9');
+INSERT INTO `t_sys_role_permission` VALUES ('2108', '1', '17');
+INSERT INTO `t_sys_role_permission` VALUES ('2109', '1', '18');
+INSERT INTO `t_sys_role_permission` VALUES ('2110', '1', '19');
+INSERT INTO `t_sys_role_permission` VALUES ('2111', '1', '10');
+INSERT INTO `t_sys_role_permission` VALUES ('2112', '1', '43');
+INSERT INTO `t_sys_role_permission` VALUES ('2113', '1', '21');
+INSERT INTO `t_sys_role_permission` VALUES ('2114', '1', '22');
+INSERT INTO `t_sys_role_permission` VALUES ('2115', '1', '23');
+INSERT INTO `t_sys_role_permission` VALUES ('2116', '1', '11');
+INSERT INTO `t_sys_role_permission` VALUES ('2117', '1', '25');
+INSERT INTO `t_sys_role_permission` VALUES ('2118', '1', '26');
+INSERT INTO `t_sys_role_permission` VALUES ('2119', '1', '27');
+INSERT INTO `t_sys_role_permission` VALUES ('2120', '1', '13');
+INSERT INTO `t_sys_role_permission` VALUES ('2121', '1', '29');
+INSERT INTO `t_sys_role_permission` VALUES ('2122', '1', '30');
+INSERT INTO `t_sys_role_permission` VALUES ('2123', '1', '31');
+INSERT INTO `t_sys_role_permission` VALUES ('2124', '1', '49');
+INSERT INTO `t_sys_role_permission` VALUES ('2125', '1', '50');
+INSERT INTO `t_sys_role_permission` VALUES ('2126', '1', '51');
+INSERT INTO `t_sys_role_permission` VALUES ('2127', '1', '52');
+INSERT INTO `t_sys_role_permission` VALUES ('2128', '1', '41');
+INSERT INTO `t_sys_role_permission` VALUES ('2129', '1', '44');
+INSERT INTO `t_sys_role_permission` VALUES ('2130', '1', '45');
+INSERT INTO `t_sys_role_permission` VALUES ('2131', '1', '46');
+INSERT INTO `t_sys_role_permission` VALUES ('2132', '1', '32');
+INSERT INTO `t_sys_role_permission` VALUES ('2133', '1', '33');
+INSERT INTO `t_sys_role_permission` VALUES ('2134', '1', '34');
+INSERT INTO `t_sys_role_permission` VALUES ('2135', '1', '54');
+INSERT INTO `t_sys_role_permission` VALUES ('2136', '1', '70');
+INSERT INTO `t_sys_role_permission` VALUES ('2137', '1', '62');
+INSERT INTO `t_sys_role_permission` VALUES ('2138', '1', '63');
+INSERT INTO `t_sys_role_permission` VALUES ('2139', '1', '59');
+INSERT INTO `t_sys_role_permission` VALUES ('2140', '1', '55');
+INSERT INTO `t_sys_role_permission` VALUES ('2141', '1', '56');
+INSERT INTO `t_sys_role_permission` VALUES ('2142', '1', '67');
+INSERT INTO `t_sys_role_permission` VALUES ('2143', '1', '68');
+INSERT INTO `t_sys_role_permission` VALUES ('2144', '1', '69');
+INSERT INTO `t_sys_role_permission` VALUES ('2145', '1', '57');
+INSERT INTO `t_sys_role_permission` VALUES ('2146', '1', '64');
+INSERT INTO `t_sys_role_permission` VALUES ('2147', '1', '65');
+INSERT INTO `t_sys_role_permission` VALUES ('2148', '1', '66');
+INSERT INTO `t_sys_role_permission` VALUES ('2149', '1', '5');
+INSERT INTO `t_sys_role_permission` VALUES ('2150', '1', '6');
+INSERT INTO `t_sys_role_permission` VALUES ('2151', '1', '7');
+INSERT INTO `t_sys_role_permission` VALUES ('2152', '1', '14');
+INSERT INTO `t_sys_role_permission` VALUES ('2153', '1', '4');
+INSERT INTO `t_sys_role_permission` VALUES ('2154', '1', '58');
+INSERT INTO `t_sys_role_permission` VALUES ('2155', '2', '54');
+INSERT INTO `t_sys_role_permission` VALUES ('2156', '2', '70');
+INSERT INTO `t_sys_role_permission` VALUES ('2157', '2', '62');
+INSERT INTO `t_sys_role_permission` VALUES ('2158', '2', '63');
+INSERT INTO `t_sys_role_permission` VALUES ('2159', '2', '59');
+INSERT INTO `t_sys_role_permission` VALUES ('2160', '2', '55');
+INSERT INTO `t_sys_role_permission` VALUES ('2161', '2', '56');
+INSERT INTO `t_sys_role_permission` VALUES ('2162', '2', '67');
+INSERT INTO `t_sys_role_permission` VALUES ('2163', '2', '68');
+INSERT INTO `t_sys_role_permission` VALUES ('2164', '2', '69');
+INSERT INTO `t_sys_role_permission` VALUES ('2165', '2', '57');
+INSERT INTO `t_sys_role_permission` VALUES ('2166', '2', '64');
+INSERT INTO `t_sys_role_permission` VALUES ('2167', '2', '65');
+INSERT INTO `t_sys_role_permission` VALUES ('2168', '2', '66');
+INSERT INTO `t_sys_role_permission` VALUES ('2169', '2', '5');
+INSERT INTO `t_sys_role_permission` VALUES ('2170', '2', '6');
+INSERT INTO `t_sys_role_permission` VALUES ('2171', '2', '7');
+INSERT INTO `t_sys_role_permission` VALUES ('2172', '2', '14');
+INSERT INTO `t_sys_role_permission` VALUES ('2173', '2', '4');
+INSERT INTO `t_sys_role_permission` VALUES ('2174', '2', '58');
 
 -- ----------------------------
 -- Table structure for `t_sys_user`
@@ -366,7 +360,7 @@ CREATE TABLE `t_sys_user_role` (
   `user_id` varchar(32) NOT NULL,
   `role_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_sys_user_role
@@ -390,9 +384,9 @@ INSERT INTO `t_sys_user_role` VALUES ('102', '1', '1');
 INSERT INTO `t_sys_user_role` VALUES ('103', '1', '2');
 INSERT INTO `t_sys_user_role` VALUES ('106', 'ad904a794a10434b8dec1de8ce23a288', '2');
 INSERT INTO `t_sys_user_role` VALUES ('108', 'c2bd6773d48643a9ac4540a551ba6ffb', '2');
-INSERT INTO `t_sys_user_role` VALUES ('110', '2', '2');
 INSERT INTO `t_sys_user_role` VALUES ('114', 'b88bb916dc054870ae124d92710ac3d3', '2');
 INSERT INTO `t_sys_user_role` VALUES ('116', 'b7ccfe2ef478486f89a944c5a608d90d', '11');
+INSERT INTO `t_sys_user_role` VALUES ('117', '2', '2');
 
 -- ----------------------------
 -- Table structure for `t_video`
