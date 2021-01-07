@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.springboot.bcode.domain.auth.MenuMetaVO;
-import com.springboot.bcode.domain.auth.MenuVO;
-import com.springboot.bcode.domain.auth.Permission;
+import com.springboot.authorize.domain.auth.MenuMetaVO;
+import com.springboot.authorize.domain.auth.MenuVO;
+import com.springboot.authorize.domain.auth.Permission;
 
 public class PermissionAlgorithm {
 

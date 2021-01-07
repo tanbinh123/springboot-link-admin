@@ -12,7 +12,10 @@ public class AppContext {
 
 	public static final String TOKEN = "LinkAdmin-Token";
 	
-	public static final String Department_Key = "department_key";
+	public static final String Department_Key = "linkadmin_department_key";
+	
+	public static final String USER_INFO = "linkadmin_user_info_";
+	
 	// ok
 	public static final int CODE_20000 = 20000;
 	// error

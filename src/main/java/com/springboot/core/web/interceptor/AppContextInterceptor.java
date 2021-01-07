@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.springboot.bcode.domain.auth.UserInfo;
+import com.springboot.authorize.domain.auth.UserInfo;
 import com.springboot.common.AppContext;
 import com.springboot.common.GlobalUser;
 import com.springboot.common.utils.StringUtils;

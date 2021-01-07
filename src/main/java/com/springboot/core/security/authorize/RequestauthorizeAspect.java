@@ -15,8 +15,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import com.springboot.bcode.domain.auth.Permission;
-import com.springboot.bcode.domain.auth.UserInfo;
+import com.springboot.authorize.domain.auth.Permission;
+import com.springboot.authorize.domain.auth.UserInfo;
 import com.springboot.common.AppContext;
 import com.springboot.common.GlobalUser;
 import com.springboot.common.utils.HttpUtils;
@@ -39,9 +39,9 @@ import com.springboot.core.logger.LoggerUtil;
 public class RequestauthorizeAspect {
 
 	/**
-	 * 定义拦截规则：拦截com.springboot.bcode.api包下面的所有类中，有@Requestauthorize注解的方法 。
+	 * 定义拦截规则：拦截com.springboot包下面的所有类中，有@Requestauthorize注解的方法 。
 	 */
-	@Around("execution(* com.springboot.bcode.api..*(..)) "
+	@Around("execution(* com.springboot..*.*(..)) "
 			+ "and @annotation(com.springboot.core.security.authorize.Requestauthorize)")
 	public Object method(ProceedingJoinPoint pjp) throws Throwable {
 

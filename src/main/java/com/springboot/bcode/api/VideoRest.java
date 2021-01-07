@@ -14,6 +14,15 @@ import com.springboot.common.exception.SystemException;
 import com.springboot.core.web.mvc.BaseRest;
 import com.springboot.core.web.mvc.ResponseResult;
 
+/**
+ * 具体业务代码...........................................
+ * 
+ * @ClassName: VideoRest
+ * @Description: TODO(这里用一句话描述这个类的作用)
+ * @author 252956
+ * @date 2021年1月7日 上午10:16:28
+ *
+ */
 @RestController
 @RequestMapping(value = "/rest/video")
 public class VideoRest extends BaseRest {

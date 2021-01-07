@@ -8,8 +8,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
-import com.springboot.bcode.dao.IDepartmentDao;
-import com.springboot.bcode.domain.auth.Department;
+import com.springboot.authorize.dao.IDepartmentDao;
+import com.springboot.authorize.domain.auth.Department;
 import com.springboot.common.AppContext;
 import com.springboot.core.redis.RedisUtils;
 

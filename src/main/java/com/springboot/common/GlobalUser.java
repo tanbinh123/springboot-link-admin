@@ -3,7 +3,7 @@ package com.springboot.common;
 import java.util.concurrent.TimeUnit;
 
 import com.alibaba.fastjson.JSONObject;
-import com.springboot.bcode.domain.auth.UserInfo;
+import com.springboot.authorize.domain.auth.UserInfo;
 import com.springboot.common.utils.HttpUtils;
 import com.springboot.common.utils.StringUtils;
 import com.springboot.core.redis.RedisUtils;
@@ -22,7 +22,7 @@ public class GlobalUser {
 	public final static Integer user_enable = 1;// 正常
 	public final static Integer user_unable = 0;// 禁用
 
-	private static final String USER_INFO = "user_info_";
+
 
 	/**
 	 * set user informateion to redis
@@ -33,7 +33,7 @@ public class GlobalUser {
 		if (userInfo == null) {
 			return;
 		}
-		RedisUtils.getRedis().set(USER_INFO + "" + userInfo.getToken(),
+		RedisUtils.getRedis().set(AppContext.USER_INFO + "" + userInfo.getToken(),
 				JSONObject.toJSONString(userInfo), 90, TimeUnit.DAYS);
 	}
 
@@ -49,7 +49,7 @@ public class GlobalUser {
 			return null;
 		}
 		UserInfo userInfo = null;
-		String str = RedisUtils.getRedis().get(USER_INFO + "" + token);
+		String str = RedisUtils.getRedis().get(AppContext.USER_INFO + "" + token);
 		if (StringUtils.isBlank(str)) {
 			return null;
 		}
@@ -59,7 +59,7 @@ public class GlobalUser {
 	}
 
 	public static void destroyUser() {
-		RedisUtils.getRedis().delete(USER_INFO + "" + getToken());
+		RedisUtils.getRedis().delete(AppContext.USER_INFO + "" + getToken());
 	}
 
 	public static String getToken() {

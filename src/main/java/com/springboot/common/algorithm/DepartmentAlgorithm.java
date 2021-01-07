@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.springboot.bcode.domain.auth.Department;
+import com.springboot.authorize.domain.auth.Department;
 import com.springboot.common.utils.BeanUtils;
 
 /**
