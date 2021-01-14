@@ -19,7 +19,7 @@ public interface IUserService {
 
 	JqGridPage<UserInfo> queryPage(UserInfo user);
 
-	String login(LoginVO vo);
+	String login(LoginVO vo) throws Exception;
 
 	UserInfo info();
 

@@ -31,11 +31,13 @@ import com.springboot.common.AppToken;
 import com.springboot.common.GlobalUser;
 import com.springboot.common.algorithm.DepartmentAlgorithm;
 import com.springboot.common.algorithm.PermissionAlgorithm;
+import com.springboot.common.config.RsaProperties;
 import com.springboot.common.constant.DataScopeType;
 import com.springboot.common.exception.AuthException;
 import com.springboot.common.exception.SystemException;
 import com.springboot.common.utils.BeanUtils;
 import com.springboot.common.utils.MD5Utils;
+import com.springboot.common.utils.RsaUtils;
 import com.springboot.common.utils.StringUtils;
 import com.springboot.common.utils.UUIDUtils;
 import com.springboot.core.redis.RedisUtils;
@@ -64,7 +66,7 @@ public class UserService implements IUserService {
 	private IJobService jobService;
 
 	@Override
-	public String login(LoginVO vo) {
+	public String login(LoginVO vo) throws Exception {
 		validateLoginCodition(vo);
 		UserInfo userInfo = loginProcess(vo);
 		String token = AppToken.generateToken();
@@ -85,7 +87,12 @@ public class UserService implements IUserService {
 		}
 	}
 
-	private UserInfo loginProcess(LoginVO vo) {
+	private UserInfo loginProcess(LoginVO vo) throws Exception {
+
+		// 密码解密
+		String password = RsaUtils.decryptByPrivateKey(
+				RsaProperties.privateKey, vo.getPassword());
+
 		UserInfo param = new UserInfo();
 		param.setName(vo.getUsername());
 		// 根据登陆名
@@ -93,7 +100,7 @@ public class UserService implements IUserService {
 		if (user == null) {
 			throw new AuthException("无效的用户名或密码");
 		}
-		String md5password = MD5Utils.getMD5Encoding(vo.getPassword());
+		String md5password = MD5Utils.getMD5Encoding(password);
 		if (!user.getPassword().equals(md5password)) {
 			throw new AuthException("无效的用户名或密码");
 		}
