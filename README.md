@@ -7,11 +7,6 @@ Link Admin 是一套企业级后端系统框架，基于该系统可以快速实
 - Link Admin 后端,适用于小型项目 [springboot-link-admin](https://github.com/252956/springboot-link-admin) 
 - Link Admin 后端,适用于大型项目 [link-admin](https://github.com/252956/link-admin) 
 
-## 技术栈
-springboot-link-admin 基于springboot实现，使用了最新的后端技术springboot、springjdbc、redis、mysql、maven
-
-本项目前端[https://github.com/252956/vue-link-admin]
-
 
 <p align="center">
   <img width="900" src="https://252956.github.io/static/img/1.png">
@@ -40,6 +35,9 @@ springboot-link-admin 基于springboot实现，使用了最新的后端技术spr
 <p align="center">
   <img width="900" src="https://252956.github.io/static/img/10.png">
 </p>
+
+## 技术栈
+springboot-link-admin 基于springboot实现，使用了最新的后端技术springboot、springjdbc、redis、mysql、maven
 
 
 ## 前序准备
