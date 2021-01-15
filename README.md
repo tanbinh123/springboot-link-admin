@@ -1,7 +1,14 @@
-
-
 ## 简介
-springboot-link-admin 提供一个权限认证后端接口解决方案，它基于springboot实现，使用了最新的后端技术springboot、springjdbc、redis、mysql、maven提供 安全认证，权限验证，它可以帮助你快速搭建企业级中后台产品原型。相信不管你的需求是什么，本项目都能帮助到你。
+Link Admin 是一套企业级后端系统框架，基于该系统可以快速实现企业级二次开发，提供登录认证，权限验证，访问次数限制等安全措施。以及用户管理、角色管理、权限管理、部门管理、岗位管理、数据字典、
+业务日志监控等系统管理基础功能。
+
+
+- Link Admin 前端               [vue-link-admin](https://github.com/252956/vue-link-admin) 
+- Link Admin 后端,适用于小型项目 [springboot-link-admin](https://github.com/252956/springboot-link-admin) 
+- Link Admin 后端,适用于大型项目 [link-admin](https://github.com/252956/link-admin) 
+
+## 技术栈
+springboot-link-admin 基于springboot实现，使用了最新的后端技术springboot、springjdbc、redis、mysql、maven
 
 本项目前端[https://github.com/252956/vue-link-admin]
 
