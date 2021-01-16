@@ -3,7 +3,7 @@ Link Admin 是一套企业级后端系统框架，基于该系统可以快速实
 业务日志监控等系统管理基础功能。
 
 
-- Link Admin 前端               [vue-link-admin](https://github.com/252956/vue-link-admin) 
+- Link Admin 前端               [link-admin-ui](https://github.com/252956/link-admin-ui) 
 - Link Admin 后端,适用于小型项目 [springboot-link-admin](https://github.com/252956/springboot-link-admin) 
 - Link Admin 后端,适用于大型项目 [link-admin](https://github.com/252956/link-admin) 
 
@@ -36,9 +36,6 @@ git clone https://github.com/252956/springboot-link-admin.git
 # 启动服务
 运行 App.java
 ```
-
-浏览器访问 http://localhost:8888/
-
 
 ## 加入讨论组
 
