@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : link_admin
+Source Server         : localhost
 Source Server Version : 50540
 Source Host           : localhost:3306
 Source Database       : link_admin
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2020-10-12 15:39:54
+Date: 2021-01-26 09:59:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -116,7 +116,7 @@ CREATE TABLE `t_sys_logs` (
   `response_result` varchar(2000) DEFAULT NULL,
   `state` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2137 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2178 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_sys_logs
@@ -144,20 +144,19 @@ CREATE TABLE `t_sys_permission` (
   `hidden` int(11) DEFAULT NULL,
   `permission_flag` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_sys_permission
 -- ----------------------------
-INSERT INTO `t_sys_permission` VALUES ('4', '外链', '0', '1', '1', 'https://github.com/252956/vue-link-admin', null, null, '202', null, null, null, 'link', '0', '0', null);
 INSERT INTO `t_sys_permission` VALUES ('5', '错误页面', '0', '0', '0', '/error', null, null, '199', null, '', '', '404', '0', '0', null);
 INSERT INTO `t_sys_permission` VALUES ('6', '401', '5', '1', '0', '/error/401', null, null, '30', null, 'Page401', '/error-page/401', null, '0', '0', null);
 INSERT INTO `t_sys_permission` VALUES ('7', '404', '5', '1', '0', '/error/404', null, null, '31', null, 'Page404', '/error-page/404', null, '0', '0', null);
 INSERT INTO `t_sys_permission` VALUES ('8', '系统权限', '0', '0', '0', '/permission', null, null, '100', null, '', '', 'lock', '0', '0', null);
-INSERT INTO `t_sys_permission` VALUES ('9', '用户管理', '8', '1', '0', '/permission/user', null, null, '1', null, 'User', '/permission/user', '', '0', '0', 'user:list');
-INSERT INTO `t_sys_permission` VALUES ('10', '角色管理', '8', '1', '0', '/permission/role', null, null, '2', null, 'Role', '/permission/role', null, '0', '0', 'role:list');
-INSERT INTO `t_sys_permission` VALUES ('11', '权限管理', '8', '1', '0', '/permission/permission', null, null, '3', null, 'Permission', '/permission/permission', null, '0', '0', 'permission:list');
-INSERT INTO `t_sys_permission` VALUES ('13', '部门管理', '8', '1', '0', '/permission/dept', null, null, '4', null, 'Department', '/permission/department', null, '0', '0', 'dept:list');
+INSERT INTO `t_sys_permission` VALUES ('9', '用户管理', '8', '1', '0', '/permission/user', null, null, '1', null, 'User', '/permission/user', '', '0', '0', '');
+INSERT INTO `t_sys_permission` VALUES ('10', '角色管理', '8', '1', '0', '/permission/role', null, null, '2', null, 'Role', '/permission/role', null, '0', '0', '');
+INSERT INTO `t_sys_permission` VALUES ('11', '权限管理', '8', '1', '0', '/permission/permission', null, null, '3', null, 'Permission', '/permission/permission', null, '0', '0', '');
+INSERT INTO `t_sys_permission` VALUES ('13', '部门管理', '8', '1', '0', '/permission/dept', null, null, '4', null, 'Department', '/permission/department', null, '0', '0', '');
 INSERT INTO `t_sys_permission` VALUES ('14', '图标', '0', '1', '0', '/icon', null, null, '201', null, 'Icons', '/icons/index', 'icon', '0', '0', null);
 INSERT INTO `t_sys_permission` VALUES ('17', '新增用户', '9', '2', null, '/rest/user/add', null, null, '201', null, null, null, null, null, null, 'user:add');
 INSERT INTO `t_sys_permission` VALUES ('18', '编辑用户', '9', '2', null, '/rest/user/update', null, null, '202', null, null, null, null, null, null, 'user:edit');
@@ -173,13 +172,13 @@ INSERT INTO `t_sys_permission` VALUES ('30', '编辑部门', '13', '2', null, '/
 INSERT INTO `t_sys_permission` VALUES ('31', '删除部门', '13', '2', null, '/rest/department/delete', null, null, '243', null, null, null, null, null, null, 'dept:del');
 INSERT INTO `t_sys_permission` VALUES ('32', '系统监控', '0', '0', '0', '/monitor', null, null, '101', null, '', '', 'monitor', '0', '0', null);
 INSERT INTO `t_sys_permission` VALUES ('33', '错误日志', '32', '1', '0', '/monitor/error-log', null, null, '40', null, 'ErrorLog', '/monitor/error-log', null, '0', '0', null);
-INSERT INTO `t_sys_permission` VALUES ('34', '业务日志', '32', '1', '0', '/monitor/blog', null, null, '41', null, 'Blog', '/monitor/blog', null, '0', '0', 'blog:list');
-INSERT INTO `t_sys_permission` VALUES ('41', '数据字典', '8', '1', '0', '/permission/dict', null, null, '6', null, 'Dict', '/permission/dict', null, '0', '0', 'dict:list');
+INSERT INTO `t_sys_permission` VALUES ('34', '业务日志', '32', '1', '0', '/monitor/blog', null, null, '41', null, 'Blog', '/monitor/blog', null, '0', '0', '');
+INSERT INTO `t_sys_permission` VALUES ('41', '数据字典', '8', '1', '0', '/permission/dict', null, null, '6', null, 'Dict', '/permission/dict', null, '0', '0', '');
 INSERT INTO `t_sys_permission` VALUES ('43', '数据权限', '10', '2', null, '/rest/role/saveDataScope', null, null, '1', null, null, null, null, null, null, 'role:datascope');
 INSERT INTO `t_sys_permission` VALUES ('44', '新增字典', '41', '2', null, '/rest/dict/add', null, null, '1', null, null, null, null, null, null, 'dict:add');
 INSERT INTO `t_sys_permission` VALUES ('45', '编辑字典', '41', '2', null, '/rest/dict/update', null, null, '2', null, null, null, null, null, null, 'dict:edit');
 INSERT INTO `t_sys_permission` VALUES ('46', '删除字典', '41', '2', null, '/rest/dict/delete', null, null, '3', null, null, null, null, null, null, 'dict:del');
-INSERT INTO `t_sys_permission` VALUES ('49', '岗位管理', '8', '1', '0', '/permission/job', null, null, '5', null, 'Job', '/permission/job', '', '0', '0', 'job:list');
+INSERT INTO `t_sys_permission` VALUES ('49', '岗位管理', '8', '1', '0', '/permission/job', null, null, '5', null, 'Job', '/permission/job', '', '0', '0', '');
 INSERT INTO `t_sys_permission` VALUES ('50', '添加岗位', '49', '2', '0', '/rest/job/add', null, null, '1', null, '', '', '', '0', '0', 'job:add');
 INSERT INTO `t_sys_permission` VALUES ('51', '编辑岗位', '49', '2', '0', '/rest/job/update', null, null, '2', null, '', '', '', '0', '0', 'job:edit');
 INSERT INTO `t_sys_permission` VALUES ('52', '删除岗位', '49', '2', '0', '/rest/job/delete', null, null, '3', null, '', '', '', '0', '0', 'job:del');
@@ -198,6 +197,13 @@ INSERT INTO `t_sys_permission` VALUES ('67', '导出 Excel', '56', '1', '0', '/c
 INSERT INTO `t_sys_permission` VALUES ('68', '导出 已选择项', '56', '1', '0', '/component/excel/select-excel', null, null, '2', null, 'SelectExcel', '/component/excel/select-excel', '', '1', '0', null);
 INSERT INTO `t_sys_permission` VALUES ('69', '导出 多级表头', '56', '1', '0', '/component/excel/merge-header', null, null, '3', null, 'MergeHeader', '/component/excel/merge-header', '', '1', '0', null);
 INSERT INTO `t_sys_permission` VALUES ('70', '城市控件', '54', '1', '0', '/component/citycontrol', null, null, '1', null, 'CityControlDemo', '/component/citycontrol', '', '0', '0', '');
+INSERT INTO `t_sys_permission` VALUES ('71', '查询用户', '9', '2', '0', '', null, null, '200', null, '', '', '', '0', '0', 'user:list');
+INSERT INTO `t_sys_permission` VALUES ('72', '查询角色', '10', '2', '0', '', null, null, '0', null, '', '', '', '0', '0', 'role:list');
+INSERT INTO `t_sys_permission` VALUES ('73', '查询权限', '11', '2', '0', '', null, null, '0', null, '', '', '', '0', '0', 'permission:list');
+INSERT INTO `t_sys_permission` VALUES ('74', '查询部门', '13', '2', '0', '', null, null, '0', null, '', '', '', '0', '0', 'dept:list');
+INSERT INTO `t_sys_permission` VALUES ('75', '查询岗位', '49', '2', '0', '', null, null, '0', null, '', '', '', '0', '0', 'job:list');
+INSERT INTO `t_sys_permission` VALUES ('76', '查询数据字典', '41', '2', '0', '', null, null, '0', null, '', '', '', '0', '0', 'dict:list');
+INSERT INTO `t_sys_permission` VALUES ('77', '查询日志', '34', '2', '0', '', null, null, '0', null, '', '', '', '0', '0', 'blog:list');
 
 -- ----------------------------
 -- Table structure for `t_sys_role`
@@ -217,8 +223,8 @@ CREATE TABLE `t_sys_role` (
 -- Records of t_sys_role
 -- ----------------------------
 INSERT INTO `t_sys_role` VALUES ('1', 'admin', '1', '1', null, '超级管理员');
-INSERT INTO `t_sys_role` VALUES ('2', 'editor', '1', '2', null, '系统演示角色');
-INSERT INTO `t_sys_role` VALUES ('11', 'test', '1', '5', null, '测试角色111');
+INSERT INTO `t_sys_role` VALUES ('2', 'editor', '0', '2', null, '系统演示角色');
+INSERT INTO `t_sys_role` VALUES ('11', 'test', '0', '5', null, '测试角色111');
 
 -- ----------------------------
 -- Table structure for `t_sys_role_dept`
@@ -245,13 +251,12 @@ CREATE TABLE `t_sys_role_permission` (
   `role_id` int(11) NOT NULL,
   `perm_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2175 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2182 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_sys_role_permission
 -- ----------------------------
 INSERT INTO `t_sys_role_permission` VALUES ('2063', '11', '14');
-INSERT INTO `t_sys_role_permission` VALUES ('2064', '11', '4');
 INSERT INTO `t_sys_role_permission` VALUES ('2065', '11', '58');
 INSERT INTO `t_sys_role_permission` VALUES ('2106', '1', '8');
 INSERT INTO `t_sys_role_permission` VALUES ('2107', '1', '9');
@@ -300,7 +305,6 @@ INSERT INTO `t_sys_role_permission` VALUES ('2149', '1', '5');
 INSERT INTO `t_sys_role_permission` VALUES ('2150', '1', '6');
 INSERT INTO `t_sys_role_permission` VALUES ('2151', '1', '7');
 INSERT INTO `t_sys_role_permission` VALUES ('2152', '1', '14');
-INSERT INTO `t_sys_role_permission` VALUES ('2153', '1', '4');
 INSERT INTO `t_sys_role_permission` VALUES ('2154', '1', '58');
 INSERT INTO `t_sys_role_permission` VALUES ('2155', '2', '54');
 INSERT INTO `t_sys_role_permission` VALUES ('2156', '2', '70');
@@ -320,8 +324,14 @@ INSERT INTO `t_sys_role_permission` VALUES ('2169', '2', '5');
 INSERT INTO `t_sys_role_permission` VALUES ('2170', '2', '6');
 INSERT INTO `t_sys_role_permission` VALUES ('2171', '2', '7');
 INSERT INTO `t_sys_role_permission` VALUES ('2172', '2', '14');
-INSERT INTO `t_sys_role_permission` VALUES ('2173', '2', '4');
 INSERT INTO `t_sys_role_permission` VALUES ('2174', '2', '58');
+INSERT INTO `t_sys_role_permission` VALUES ('2175', '1', '71');
+INSERT INTO `t_sys_role_permission` VALUES ('2176', '1', '72');
+INSERT INTO `t_sys_role_permission` VALUES ('2177', '1', '73');
+INSERT INTO `t_sys_role_permission` VALUES ('2178', '1', '74');
+INSERT INTO `t_sys_role_permission` VALUES ('2179', '1', '75');
+INSERT INTO `t_sys_role_permission` VALUES ('2180', '1', '76');
+INSERT INTO `t_sys_role_permission` VALUES ('2181', '1', '77');
 
 -- ----------------------------
 -- Table structure for `t_sys_user`
@@ -346,7 +356,7 @@ CREATE TABLE `t_sys_user` (
 -- Records of t_sys_user
 -- ----------------------------
 INSERT INTO `t_sys_user` VALUES ('1', 'admin', 'E10ADC3949BA59ABBE56E057F20F883E', '管理员', '17601269', '2019-09-07 10:08:25', '1', '4', '6', null, null);
-INSERT INTO `t_sys_user` VALUES ('2', 'editor', 'E10ADC3949BA59ABBE56E057F20F883E', '测试员', '666777', '2019-09-09 16:40:43', '1', '16', '5', null, null);
+INSERT INTO `t_sys_user` VALUES ('2', 'editor', 'E10ADC3949BA59ABBE56E057F20F883E', '测试员', '666777', '2019-09-09 16:40:43', '0', '16', '5', null, null);
 INSERT INTO `t_sys_user` VALUES ('ad904a794a10434b8dec1de8ce23a288', '辉桑', 'E10ADC3949BA59ABBE56E057F20F883E', '辉桑', '1111111', '2019-09-18 13:47:51', '0', '20', '5', null, null);
 INSERT INTO `t_sys_user` VALUES ('b88bb916dc054870ae124d92710ac3d3', '云桑1', 'E10ADC3949BA59ABBE56E057F20F883E', '云桑1', '1760126', '2019-09-18 11:11:39', '0', '18', '5', '123', null);
 INSERT INTO `t_sys_user` VALUES ('c2bd6773d48643a9ac4540a551ba6ffb', '用嗓', 'E10ADC3949BA59ABBE56E057F20F883E', '用嗓', '222222111', '2019-09-18 15:16:13', '0', '16', '5', null, null);

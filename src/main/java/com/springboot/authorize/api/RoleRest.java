@@ -32,6 +32,7 @@ public class RoleRest extends BaseRest {
 	@Autowired
 	private IRoleService roleService;
 
+	@Requestauthorize("role:list")
 	@RequestMapping(value = "list", method = RequestMethod.POST)
 	public ResponseResult list(@RequestBody Role role) {
 		ResponseResult rep = new ResponseResult();

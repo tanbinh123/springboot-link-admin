@@ -37,7 +37,6 @@ public class DepartmentRest extends BaseRest {
 	 * 
 	 * @return
 	 */
-	@Requestauthorize("dept:list")
 	@RequestMapping(value = "all")
 	public ResponseResult queryAll() {
 		ResponseResult rep = new ResponseResult();
