@@ -9,7 +9,7 @@
 	<version>0.0.1</version>
 
 	<name>springboot-link-admin</name>
-	<url>https://gitee.com/xyy12611/springboot-link-admin</url>
+	<url>https://github.com/252956/springboot-link-admin</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
