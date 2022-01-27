@@ -8,8 +8,7 @@ Link Admin 是一套企业级后端系统框架，基于该系统可以快速实
 
 
 - Link Admin 前端               [link-admin-ui](https://github.com/252956/link-admin-ui) 
-- Link Admin 后端,适用于小型项目 [springboot-link-admin](https://github.com/252956/springboot-link-admin) 
-- Link Admin 后端,适用于大型项目 [link-admin](https://github.com/252956/link-admin) 
+- Link Admin 后端               [springboot-link-admin](https://github.com/252956/springboot-link-admin) 
 
 
 <p align="center">
