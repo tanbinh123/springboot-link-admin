@@ -9,6 +9,14 @@ import com.springboot.core.jdbc.JdbcException;
 import com.springboot.core.jdbc.annotation.Columns;
 import com.springboot.core.jdbc.annotation.Tables;
 
+/**
+ * 
+ * @ClassName: DynamicSql
+ * @Description: TODO(根据传入的对象，动态生成对应的sql)
+ * @author 252956
+ * @date 2022年1月20日 下午4:09:25
+ *
+ */
 public class DynamicSql {
 
 	public static <T> SqlObject insertSql(T entity) {
@@ -62,8 +70,8 @@ public class DynamicSql {
 		sql.append(" (" + tableColumn + ") ");
 		sql.append(" values(" + tableValues + ")");
 		SqlObject so = new SqlObject();
-		so.sql = sql.toString();
-		so.params = params;
+		so.setSql(sql.toString());
+		so.setParams(params);
 		return so;
 	}
 
@@ -106,7 +114,7 @@ public class DynamicSql {
 			// if (!SqlUtils.typeIsNotNullValue(type, filedValue)) {
 			// continue;
 			// }
-			whereColumn.append(" and "+column + "=? ");
+			whereColumn.append(" and " + column + "=? ");
 			params.add(filedValue);
 		}
 		if (params == null || params.size() == 0) {
@@ -115,7 +123,7 @@ public class DynamicSql {
 
 		String tableWhere = whereColumn
 				.subSequence(0, whereColumn.length() - 1).toString();
-		
+
 		sql.append("delete from");
 		sql.append(" ");
 		sql.append(tableName);
@@ -125,8 +133,8 @@ public class DynamicSql {
 		sql.append(tableWhere);
 
 		SqlObject so = new SqlObject();
-		so.sql = sql.toString();
-		so.params = params;
+		so.setSql(sql.toString());
+		so.setParams(params);
 		return so;
 	}
 
@@ -198,10 +206,10 @@ public class DynamicSql {
 
 		sqlParams.add(whereValue.toString());
 
-		SqlObject sf = new SqlObject();
-		sf.sql = sql.toString();
-		sf.params = sqlParams;
-		return sf;
+		SqlObject so = new SqlObject();
+		so.setSql(sql.toString());
+		so.setParams(sqlParams);
+		return so;
 	}
 
 	public static <T> SqlObject findSql(T entity) {
@@ -258,10 +266,10 @@ public class DynamicSql {
 		sql.append(" ");
 		sql.append(whereColumn);
 
-		SqlObject sf = new SqlObject();
-		sf.sql = sql.toString();
-		sf.params = params;
-		return sf;
+		SqlObject so = new SqlObject();
+		so.setSql(sql.toString());
+		so.setParams(params);
+		return so;
 	}
 
 	public static <T> SqlObject findByIdSql(Object id, Class<T> classz) {
@@ -323,10 +331,10 @@ public class DynamicSql {
 		sql.append(" ");
 		sql.append(whereColumn);
 		sql.append("=?");
-		SqlObject sf = new SqlObject();
-		sf.sql = sql.toString();
-		sf.params = sqlParams;
-		return sf;
+		SqlObject so = new SqlObject();
+		so.setSql(sql.toString());
+		so.setParams(sqlParams);
+		return so;
 	}
 
 }

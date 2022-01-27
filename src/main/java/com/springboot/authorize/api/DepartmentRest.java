@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springboot.authorize.domain.auth.Department;
 import com.springboot.authorize.service.IDepartmentService;
 import com.springboot.common.algorithm.DepartmentAlgorithm;
-import com.springboot.common.exception.AuthException;
-import com.springboot.core.logger.LoggerUtil;
 import com.springboot.core.logger.OpertionBLog;
-import com.springboot.core.security.authorize.Requestauthorize;
+import com.springboot.core.security.permission.CheckPermission;
 import com.springboot.core.web.mvc.BaseRest;
 import com.springboot.core.web.mvc.ResponseResult;
 
@@ -39,18 +37,8 @@ public class DepartmentRest extends BaseRest {
 	 */
 	@RequestMapping(value = "all")
 	public ResponseResult queryAll() {
-		ResponseResult rep = new ResponseResult();
-		try {
-			rep.setResult(DepartmentAlgorithm.tree(departmentService.queryAll()));
-		} catch (AuthException e) {
-			rep.setCode(CODE_500);
-			rep.setMsg(e.getMessage());
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			rep.setMsg("系统异常.请稍后再试");
-			LoggerUtil.error(e.getMessage());
-		}
-		return rep;
+		return ResponseResult.success(DepartmentAlgorithm
+				.tree(departmentService.queryAll()));
 	}
 
 	/**
@@ -59,23 +47,12 @@ public class DepartmentRest extends BaseRest {
 	 * @param dept
 	 * @return
 	 */
-	@Requestauthorize("dept:add")
+	@CheckPermission("dept:add")
 	@OpertionBLog(title = "新增部门")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public ResponseResult add(@RequestBody Department dept) {
-		ResponseResult rep = new ResponseResult();
-		try {
-			departmentService.add(dept);
-		} catch (AuthException e) {
-			rep.setCode(CODE_500);
-			rep.setMsg(e.getMessage());
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			rep.setMsg("系统异常.请稍后再试");
-			LoggerUtil.error(e.getMessage());
-		}
-
-		return rep;
+		departmentService.add(dept);
+		return ResponseResult.success();
 	}
 
 	/**
@@ -84,22 +61,12 @@ public class DepartmentRest extends BaseRest {
 	 * @param dept
 	 * @return
 	 */
-	@Requestauthorize("dept:edit")
+	@CheckPermission("dept:edit")
 	@OpertionBLog(title = "修改部门")
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public ResponseResult update(@RequestBody Department dept) {
-		ResponseResult rep = new ResponseResult();
-		try {
-			departmentService.update(dept);
-		} catch (AuthException e) {
-			rep.setCode(CODE_500);
-			rep.setMsg(e.getMessage());
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			rep.setMsg("系统异常.请稍后再试");
-			LoggerUtil.error(e.getMessage());
-		}
-		return rep;
+		departmentService.update(dept);
+		return ResponseResult.success();
 	}
 
 	/**
@@ -108,21 +75,11 @@ public class DepartmentRest extends BaseRest {
 	 * @param id
 	 * @return
 	 */
-	@Requestauthorize("dept:del")
+	@CheckPermission("dept:del")
 	@OpertionBLog(title = "删除部门")
 	@RequestMapping(value = "delete")
 	public ResponseResult delete(@RequestParam("id") Integer id) {
-		ResponseResult rep = new ResponseResult();
-		try {
-			departmentService.delete(id);
-		} catch (AuthException e) {
-			rep.setCode(CODE_500);
-			rep.setMsg(e.getMessage());
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			rep.setMsg("系统异常.请稍后再试");
-			LoggerUtil.error(e.getMessage());
-		}
-		return rep;
+		departmentService.delete(id);
+		return ResponseResult.success();
 	}
 }

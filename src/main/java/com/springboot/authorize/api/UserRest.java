@@ -12,11 +12,9 @@ import com.springboot.authorize.domain.auth.ModifyPwdVO;
 import com.springboot.authorize.domain.auth.UserInfo;
 import com.springboot.authorize.domain.auth.UserInfoVO;
 import com.springboot.authorize.service.IUserService;
-import com.springboot.common.GlobalUser;
-import com.springboot.common.exception.AuthException;
-import com.springboot.core.logger.LoggerUtil;
+import com.springboot.common.UserHolder;
 import com.springboot.core.logger.OpertionBLog;
-import com.springboot.core.security.authorize.Requestauthorize;
+import com.springboot.core.security.permission.CheckPermission;
 import com.springboot.core.security.requestlimt.RequestLimit;
 import com.springboot.core.web.mvc.BaseRest;
 import com.springboot.core.web.mvc.ResponseResult;
@@ -38,22 +36,11 @@ public class UserRest extends BaseRest {
 	private IUserService userService;
 
 	// 一分钟请求100次，等待300秒
-	@RequestLimit(time = 60, count = 100, waits = 300)
+	// @RequestLimit(time = 60, count = 100, waits = 300)
 	@OpertionBLog(title = "登录")
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public ResponseResult login(@RequestBody LoginVO vo) {
-		ResponseResult rep = new ResponseResult();
-		try {
-			rep.setResult(userService.login(vo));
-		} catch (AuthException e) {
-			rep.setCode(CODE_500);
-			rep.setMsg(e.getMessage());
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			rep.setMsg("登陆异常.请稍后再试");
-			LoggerUtil.error(e.getMessage());
-		}
-		return rep;
+		return ResponseResult.success(userService.login(vo));
 	}
 
 	/**
@@ -65,138 +52,59 @@ public class UserRest extends BaseRest {
 	 */
 	@RequestMapping(value = "info")
 	public ResponseResult info() {
-		ResponseResult rep = new ResponseResult();
-		try {
-			rep.setResult(userService.info());
-		} catch (AuthException e) {
-			rep.setCode(CODE_500);
-			rep.setMsg(e.getMessage());
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			rep.setMsg("系统异常.请稍后再试");
-			LoggerUtil.error(e.getMessage());
-		}
-		return rep;
+		return ResponseResult.success(userService.info());
 	}
 
 	@OpertionBLog(title = "退出")
 	@RequestMapping("logout")
 	public ResponseResult logout() {
-		ResponseResult rep = new ResponseResult();
-		try {
-			GlobalUser.destroyUser();
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			rep.setMsg("系统异常.请稍后再试");
-			LoggerUtil.error(e.getMessage());
-		}
-		return rep;
+		UserHolder.destroyUser();
+		return ResponseResult.success();
 	}
 
-	@Requestauthorize("user:list")
+	@CheckPermission("user:list")
 	@RequestMapping(value = "list", method = RequestMethod.POST)
 	public ResponseResult list(@RequestBody UserInfo user) {
-		ResponseResult rep = new ResponseResult();
-		try {
-			rep.setResult(userService.queryPage(user));
-		} catch (AuthException e) {
-			rep.setCode(CODE_500);
-			LoggerUtil.error(e.getMessage());
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			LoggerUtil.error(e.getMessage());
-		}
-		return rep;
-
+		return ResponseResult.success(userService.queryPage(user));
 	}
 
 	@OpertionBLog(title = "添加用户")
-	@Requestauthorize("user:add")
+	@CheckPermission("user:add")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public ResponseResult add(@RequestBody UserInfoVO user) {
-		ResponseResult rep = new ResponseResult();
-		try {
-			userService.add(user);
-		} catch (AuthException e) {
-			rep.setCode(CODE_500);
-			rep.setMsg(e.getMessage());
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			rep.setMsg("保存异常.请稍后再试");
-			LoggerUtil.error(e.getMessage());
-		}
-		return rep;
+		userService.add(user);
+		return ResponseResult.success();
 	}
 
 	@OpertionBLog(title = "修改用户")
-	@Requestauthorize("user:edit")
+	@CheckPermission("user:edit")
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public ResponseResult update(@RequestBody UserInfoVO user) {
-		ResponseResult rep = new ResponseResult();
-		try {
-			userService.update(user);
-		} catch (AuthException e) {
-			rep.setCode(CODE_500);
-			rep.setMsg(e.getMessage());
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			rep.setMsg("修改异常.请稍后再试");
-			LoggerUtil.error(e.getMessage());
-		}
-		return rep;
+		userService.update(user);
+		return ResponseResult.success();
 	}
 
 	@OpertionBLog(title = "删除用户")
-	@Requestauthorize("user:del")
+	@CheckPermission("user:del")
 	@RequestMapping(value = "delete")
 	public ResponseResult delete(@RequestParam("uid") String uid) {
-		ResponseResult rep = new ResponseResult();
-		try {
-			userService.delete(uid);
-		} catch (AuthException e) {
-			rep.setCode(CODE_500);
-			rep.setMsg(e.getMessage());
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			rep.setMsg("修改异常.请稍后再试");
-			LoggerUtil.error(e.getMessage());
-		}
-		return rep;
+		userService.delete(uid);
+		return ResponseResult.success();
 	}
 
 	@OpertionBLog(title = "修改密码")
 	@RequestMapping(value = "modifyPwd", method = RequestMethod.POST)
 	public ResponseResult modifyPwd(@RequestBody ModifyPwdVO vo) {
-		ResponseResult rep = new ResponseResult();
-		try {
-			userService.modifyPwd(vo);
-		} catch (AuthException e) {
-			rep.setCode(CODE_500);
-			rep.setMsg(e.getMessage());
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			rep.setMsg("系统异常.请稍后再试");
-			LoggerUtil.error(e.getMessage());
-		}
-		return rep;
+		userService.modifyPwd(vo);
+		return ResponseResult.success();
 
 	}
 
 	@OpertionBLog(title = "更新用户状态")
 	@RequestMapping(value = "updateState", method = RequestMethod.POST)
 	public ResponseResult updateState(@RequestBody UserInfoVO vo) {
-		ResponseResult rep = new ResponseResult();
-		try {
-			userService.updateState(vo);
-		} catch (AuthException e) {
-			rep.setCode(CODE_500);
-			rep.setMsg(e.getMessage());
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			rep.setMsg("系统异常.请稍后再试");
-			LoggerUtil.error(e.getMessage());
-		}
-		return rep;
+		userService.updateState(vo);
+		return ResponseResult.success();
 
 	}
 

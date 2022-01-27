@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springboot.authorize.domain.auth.Permission;
 import com.springboot.authorize.service.IPermissionService;
 import com.springboot.common.algorithm.PermissionAlgorithm;
-import com.springboot.common.exception.AuthException;
+import com.springboot.core.exception.AuthException;
 import com.springboot.core.logger.LoggerUtil;
 import com.springboot.core.logger.OpertionBLog;
-import com.springboot.core.security.authorize.Requestauthorize;
+import com.springboot.core.security.permission.CheckPermission;
 import com.springboot.core.web.mvc.BaseRest;
 import com.springboot.core.web.mvc.ResponseResult;
 
@@ -39,21 +39,11 @@ public class PermissionRest extends BaseRest {
 	 * 
 	 * @return
 	 */
-	@Requestauthorize("permission:list")
+	@CheckPermission("permission:list")
 	@RequestMapping(value = "all")
 	public ResponseResult queryAll() {
-		ResponseResult rep = new ResponseResult();
-		try {
-			rep.setResult(PermissionAlgorithm.tree(rightService.queryAll()));
-		} catch (AuthException e) {
-			rep.setCode(CODE_500);
-			rep.setMsg(e.getMessage());
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			rep.setMsg("系统异常.请稍后再试");
-			LoggerUtil.error(e.getMessage());
-		}
-		return rep;
+		return ResponseResult.success(PermissionAlgorithm.tree(rightService
+				.queryAll()));
 	}
 
 	/**
@@ -67,74 +57,32 @@ public class PermissionRest extends BaseRest {
 	@RequestMapping(value = "allByRole/{roleId}")
 	public ResponseResult queryAllCheckByRole(
 			@PathVariable("roleId") Integer roleId) {
-		ResponseResult rep = new ResponseResult();
-		try {
-			rep.setResult(PermissionAlgorithm.tree(rightService
-					.queryByRole(new Integer[] { roleId })));
-		} catch (AuthException e) {
-			rep.setCode(CODE_500);
-			rep.setMsg(e.getMessage());
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			rep.setMsg("系统异常.请稍后再试");
-			LoggerUtil.error(e.getMessage());
-		}
-		return rep;
+		return ResponseResult.success(PermissionAlgorithm.tree(rightService
+				.queryByRole(new Integer[] { roleId })));
 	}
 
-	@Requestauthorize("permission:add")
+	@CheckPermission("permission:add")
 	@OpertionBLog(title = "新增权限")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public ResponseResult add(@RequestBody Permission permission) {
-		ResponseResult rep = new ResponseResult();
-		try {
-			rightService.add(permission);
-		} catch (AuthException e) {
-			rep.setCode(CODE_500);
-			rep.setMsg(e.getMessage());
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			rep.setMsg("系统异常.请稍后再试");
-			LoggerUtil.error(e.getMessage());
-		}
-
-		return rep;
+		rightService.add(permission);
+		return ResponseResult.success();
 	}
 
-	@Requestauthorize("permission:edit")
+	@CheckPermission("permission:edit")
 	@OpertionBLog(title = "修改权限")
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public ResponseResult update(@RequestBody Permission right) {
-		ResponseResult rep = new ResponseResult();
-		try {
-			rightService.update(right);
-		} catch (AuthException e) {
-			rep.setCode(CODE_500);
-			rep.setMsg(e.getMessage());
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			rep.setMsg("系统异常.请稍后再试");
-			LoggerUtil.error(e.getMessage());
-		}
-		return rep;
+		rightService.update(right);
+		return ResponseResult.success();
 	}
 
-	@Requestauthorize("permission:del")
+	@CheckPermission("permission:del")
 	@OpertionBLog(title = "删除权限")
 	@RequestMapping(value = "delete")
 	public ResponseResult delete(@RequestParam("id") Integer id) {
-		ResponseResult rep = new ResponseResult();
-		try {
-			rightService.delete(id);
-		} catch (AuthException e) {
-			rep.setCode(CODE_500);
-			rep.setMsg(e.getMessage());
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			rep.setMsg("系统异常.请稍后再试");
-			LoggerUtil.error(e.getMessage());
-		}
-		return rep;
+		rightService.delete(id);
+		return ResponseResult.success();
 	}
 
 }

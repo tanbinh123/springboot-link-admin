@@ -27,21 +27,19 @@ import com.springboot.authorize.service.IPermissionService;
 import com.springboot.authorize.service.IRoleService;
 import com.springboot.authorize.service.IUserService;
 import com.springboot.common.AppContext;
-import com.springboot.common.AppToken;
-import com.springboot.common.GlobalUser;
+import com.springboot.common.UserHolder;
 import com.springboot.common.algorithm.DepartmentAlgorithm;
 import com.springboot.common.algorithm.PermissionAlgorithm;
-import com.springboot.common.config.RsaProperties;
 import com.springboot.common.constant.DataScopeType;
-import com.springboot.common.exception.AuthException;
-import com.springboot.common.exception.SystemException;
 import com.springboot.common.utils.BeanUtils;
 import com.springboot.common.utils.MD5Utils;
 import com.springboot.common.utils.RsaUtils;
 import com.springboot.common.utils.StringUtils;
 import com.springboot.common.utils.UUIDUtils;
-import com.springboot.core.redis.RedisUtils;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.SysManager;
+import com.springboot.core.exception.AuthException;
+import com.springboot.core.exception.SystemException;
+import com.springboot.core.web.mvc.Page;
 
 /**
  * 用户业务层实现类
@@ -66,32 +64,31 @@ public class UserService implements IUserService {
 	private IJobService jobService;
 
 	@Override
-	public String login(LoginVO vo) throws Exception {
-		validateLoginCodition(vo);
-		UserInfo userInfo = loginProcess(vo);
-		String token = AppToken.generateToken();
-		userInfo.setToken(token);
-		GlobalUser.setUserInfo(userInfo);
-		return token;
-	}
-
-	private void validateLoginCodition(LoginVO vo) {
-		if (vo == null) {
-			throw new AuthException("登录失败");
-		}
+	public String login(LoginVO vo) {
 		if (StringUtils.isBlank(vo.getUsername())) {
 			throw new AuthException("用户名不能为空");
 		}
 		if (StringUtils.isBlank(vo.getPassword())) {
 			throw new AuthException("密码不能为空");
 		}
+		UserInfo userInfo = loginProcess(vo);
+		String token = UserHolder.generateToken();
+		userInfo.setToken(token);
+		UserHolder.setUserInfo(userInfo);
+		return token;
 	}
 
-	private UserInfo loginProcess(LoginVO vo) throws Exception {
+	private UserInfo loginProcess(LoginVO vo) {
 
 		// 密码解密
-		String password = RsaUtils.decryptByPrivateKey(
-				RsaProperties.privateKey, vo.getPassword());
+		String password = "";
+		try {
+			password = RsaUtils.decryptByPrivateKey(SysManager.getConfig()
+					.getPrivateKey(), vo.getPassword());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		UserInfo param = new UserInfo();
 		param.setName(vo.getUsername());
@@ -104,7 +101,7 @@ public class UserService implements IUserService {
 		if (!user.getPassword().equals(md5password)) {
 			throw new AuthException("无效的用户名或密码");
 		}
-		if (GlobalUser.user_unable.equals(user.getState())) {
+		if (UserHolder.user_unable.equals(user.getState())) {
 			throw new AuthException("该账户已被禁用");
 		}
 		return user;
@@ -113,7 +110,7 @@ public class UserService implements IUserService {
 	@Override
 	public UserInfo info() {
 		// 判断用户数据是否为空
-		UserInfo user = GlobalUser.getUserInfo();
+		UserInfo user = UserHolder.getUserInfo();
 		if (user == null) {
 			throw new AuthException("用户未登录");
 		}
@@ -121,7 +118,7 @@ public class UserService implements IUserService {
 		// 获取当前用户的所属公司
 		Department company = DepartmentAlgorithm.findCompany(user.getDeptid(),
 				JSONArray.parseArray(
-						RedisUtils.getRedis().get(AppContext.Department_Key),
+						SysManager.getRedis().get(AppContext.Department_Key),
 						Department.class));
 		if (company == null) {
 			throw new SystemException("未查询到当前用户的所属公司");
@@ -173,7 +170,7 @@ public class UserService implements IUserService {
 		user.setPermissions(permissionList);
 		user.setDatascope(getDataScope(user));
 		user.setDatascopes(getDataScopes(user));
-		GlobalUser.setUserInfo(user);
+		UserHolder.setUserInfo(user);
 		return user;
 	}
 
@@ -205,7 +202,7 @@ public class UserService implements IUserService {
 	 */
 	private List<Integer> getDataScopes(UserInfo user) {
 		List<Integer> dataScopeList = new ArrayList<Integer>();
-		List<Department> allDeptList = JSONArray.parseArray(RedisUtils
+		List<Department> allDeptList = JSONArray.parseArray(SysManager
 				.getRedis().get(AppContext.Department_Key), Department.class);
 		for (Role role : user.getRoles()) {
 			// 1全部数据权限
@@ -253,7 +250,7 @@ public class UserService implements IUserService {
 		if (!vo.getNewPassword().equals(vo.getConfirmNewPassword())) {
 			throw new AuthException("两次输入密码必须相同");
 		}
-		UserInfo user = GlobalUser.getUserInfo();
+		UserInfo user = UserHolder.getUserInfo();
 
 		if (!user.getPassword().equals(
 				MD5Utils.getMD5Encoding(vo.getOldPassword()))) {
@@ -267,16 +264,16 @@ public class UserService implements IUserService {
 		userInfo.setPassword(MD5Utils.getMD5Encoding(vo.getNewPassword()));
 		userDao.update(userInfo);
 		// 更新内存中的密码
-		GlobalUser.setUserInfo(userInfo);
+		UserHolder.setUserInfo(userInfo);
 
 	}
 
 	@Override
-	public JqGridPage<UserInfo> queryPage(UserInfo user) {
+	public Page<UserInfo> queryPage(UserInfo user) {
 		if (user == null) {
 			throw new AuthException("参数不能为空");
 		}
-		JqGridPage<UserInfo> page = userDao.selectPage(user);
+		Page<UserInfo> page = userDao.selectPage(user);
 		if (page.getRows() != null && !page.getRows().isEmpty()) {
 			for (UserInfo userInfo : page.getRows()) {
 				List<Role> roleList = roleService
@@ -303,6 +300,13 @@ public class UserService implements IUserService {
 		if (vo.getDeptid() == null) {
 			throw new AuthException("请选择部门");
 		}
+		UserInfo existUserParam = new UserInfo();
+		existUserParam.setName(vo.getName());
+		UserInfo existUser = userDao.find(existUserParam);
+		if (existUser != null) {
+			throw new AuthException("账号已存在");
+		}
+
 		UserInfo user = new UserInfo();
 		BeanUtils.copyObject(user, vo);
 		user.setCreateTime(new Date());

@@ -2,7 +2,7 @@ package com.springboot.authorize.domain.auth;
 
 import com.springboot.core.jdbc.annotation.Columns;
 import com.springboot.core.jdbc.annotation.Tables;
-import com.springboot.core.web.mvc.JqGridParam;
+import com.springboot.core.web.mvc.PageParam;
 
 /**
  * 数据字典表
@@ -14,7 +14,7 @@ import com.springboot.core.web.mvc.JqGridParam;
  *
  */
 @Tables(table = "t_sys_dict")
-public class Dict extends JqGridParam {
+public class Dict extends PageParam {
 
 	@Columns(column = "id", primaryKey = true)
 	private Integer id; // 字典id

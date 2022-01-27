@@ -4,10 +4,10 @@ import java.util.Date;
 
 import com.springboot.core.jdbc.annotation.Columns;
 import com.springboot.core.jdbc.annotation.Tables;
-import com.springboot.core.web.mvc.JqGridParam;
+import com.springboot.core.web.mvc.PageParam;
 
 @Tables(table = "t_video")
-public class Video extends JqGridParam {
+public class Video extends PageParam {
 
 	@Columns(column = "id", primaryKey = true)
 	private Integer id;

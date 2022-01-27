@@ -1,6 +1,5 @@
 package com.springboot.core.logger;
 
-import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,18 +19,19 @@ import com.springboot.authorize.dao.ILogDao;
 import com.springboot.authorize.domain.auth.UserInfo;
 import com.springboot.authorize.domain.logs.BLog;
 import com.springboot.common.AppContext;
-import com.springboot.common.GlobalUser;
-import com.springboot.common.utils.HttpUtils;
+import com.springboot.common.UserHolder;
 import com.springboot.common.utils.IPUtils;
 import com.springboot.core.web.mvc.ResponseResult;
+import com.springboot.core.web.spring.SpringMVCUtil;
 
 /**
  * 日志记录aop,目前已经优化为线程池加异步写入业务日志
-* @ClassName: OpertionBLogAspect 
-* @Description: TODO(这里用一句话描述这个类的作用) 
-* @author 252956
-* @date 2019年10月21日 下午4:54:37 
-*
+ * 
+ * @ClassName: OpertionBLogAspect
+ * @Description: TODO(这里用一句话描述这个类的作用)
+ * @author 252956
+ * @date 2019年10月21日 下午4:54:37
+ *
  */
 @Order(7)
 @Aspect
@@ -42,7 +42,7 @@ public class OpertionBLogAspect {
 	@Autowired
 	private ILogDao logDao;
 
-	@Around("execution(* com.springboot.bcode.api..*(..)) "
+	@Around("execution(* com.springboot..*(..)) "
 			+ "and @annotation(com.springboot.core.logger.OpertionBLog)")
 	public Object method(ProceedingJoinPoint pjp) throws Throwable {
 
@@ -50,10 +50,9 @@ public class OpertionBLogAspect {
 		log.setTimestamps(System.currentTimeMillis());
 		log.setCreatetime(new Date());
 		log.setState(1);
-		// 先通过注解判断
-		MethodSignature signature = (MethodSignature) pjp.getSignature();
-		Method method = signature.getMethod(); // 获取被拦截的方法
-		OpertionBLog opertionBLog = method.getAnnotation(OpertionBLog.class);
+
+		OpertionBLog opertionBLog = ((MethodSignature) pjp.getSignature())
+				.getMethod().getAnnotation(OpertionBLog.class);
 		// 方法执行后记录日志
 		Object result = pjp.proceed();
 
@@ -79,13 +78,13 @@ public class OpertionBLogAspect {
 	}
 
 	private void crateBLog(BLog log, ProceedingJoinPoint pjp) {
-		HttpServletRequest request = HttpUtils.getRequest();
+		HttpServletRequest request = SpringMVCUtil.getRequest();
 		log.setUrl(request.getRequestURL().toString());
 		log.setIp(IPUtils.getIpAddr(request));
 		log.setRequestmethod(request.getMethod());
 		log.setContentType(request.getContentType());
 		log.setRequestparams(getRequestParams(request, pjp.getArgs()));
-		UserInfo user = GlobalUser.getUserInfo();
+		UserInfo user = UserHolder.getUserInfo();
 		if (user != null) {
 			log.setLoginuser(user.getName());
 			log.setVsername(user.getVserName());

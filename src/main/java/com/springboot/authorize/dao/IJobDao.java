@@ -3,7 +3,7 @@ package com.springboot.authorize.dao;
 import java.util.List;
 
 import com.springboot.authorize.domain.auth.Job;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.web.mvc.Page;
 /**
  * 岗位接口
 * @ClassName: IJobDao 
@@ -14,7 +14,7 @@ import com.springboot.core.web.mvc.JqGridPage;
  */
 public interface IJobDao {
 
-	JqGridPage<Job> selectPage(Job job);
+	Page<Job> selectPage(Job job);
 	
 	List<Job> selectAll();
 

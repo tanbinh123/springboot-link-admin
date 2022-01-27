@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.springboot.authorize.domain.auth.UserInfo;
 import com.springboot.authorize.domain.auth.UserRole;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.web.mvc.Page;
 /**
  * 用户接口
 * @ClassName: IUserDao 
@@ -15,7 +15,7 @@ import com.springboot.core.web.mvc.JqGridPage;
  */
 public interface IUserDao {
 
-	JqGridPage<UserInfo> selectPage(UserInfo user);
+	Page<UserInfo> selectPage(UserInfo user);
 
 	UserInfo find(UserInfo user);
 

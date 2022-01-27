@@ -2,7 +2,7 @@ package com.springboot.authorize.domain.auth;
 
 import com.springboot.core.jdbc.annotation.Columns;
 import com.springboot.core.jdbc.annotation.Tables;
-import com.springboot.core.web.mvc.JqGridParam;
+import com.springboot.core.web.mvc.PageParam;
 
 /**
  * 岗位表
@@ -14,7 +14,7 @@ import com.springboot.core.web.mvc.JqGridParam;
  *
  */
 @Tables(table = "t_sys_job")
-public class Job extends JqGridParam {
+public class Job extends PageParam {
 
 	// Fields
 	@Columns(column = "id", primaryKey = true)

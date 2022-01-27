@@ -9,7 +9,7 @@ import com.springboot.authorize.domain.auth.UserInfo;
 import com.springboot.authorize.domain.auth.UserRole;
 import com.springboot.common.utils.StringUtils;
 import com.springboot.core.jdbc.BaseDaoImpl;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.web.mvc.Page;
 
 /**
  * 用户数据持久层实现类
@@ -24,13 +24,13 @@ import com.springboot.core.web.mvc.JqGridPage;
 public class UserDao extends BaseDaoImpl implements IUserDao {
 
 	@Override
-	public JqGridPage<UserInfo> selectPage(UserInfo user) {
+	public Page<UserInfo> selectPage(UserInfo user) {
 		List<UserInfo> list = super.select(
 				getSqlPageHandle().handlerPagingSQL(userPageSql(user, 0),
 						user.getPage(), user.getLimit()), null, UserInfo.class);
 		int count = super.jdbcTemplate.queryForObject(userPageSql(user, 1),
 				null, Integer.class);
-		JqGridPage<UserInfo> page = new JqGridPage<UserInfo>(list, count,
+		Page<UserInfo> page = new Page<UserInfo>(list, count,
 				user.getLimit(), user.getPage());
 		return page;
 	}
@@ -60,7 +60,7 @@ public class UserDao extends BaseDaoImpl implements IUserDao {
 			sql.append(" and u.mobile like '%").append(
 					user.getMobile().trim() + "%' ");
 		}
-		if (user.getDeptid() != null && user.getDeptid() != 0) {
+		if (user.getDeptid() != null && user.getDeptid() != 2) {
 			sql.append(" and u.deptid=" + user.getDeptid() + "");
 		}
 		if (user.getState() != null) {

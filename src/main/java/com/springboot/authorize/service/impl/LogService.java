@@ -7,10 +7,9 @@ import com.springboot.authorize.dao.ILogDao;
 import com.springboot.authorize.domain.logs.BLog;
 import com.springboot.authorize.domain.logs.BLogVO;
 import com.springboot.authorize.service.ILogService;
-import com.springboot.common.exception.AuthException;
 import com.springboot.common.utils.DateUtils;
-import com.springboot.common.utils.StringUtils;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.exception.AuthException;
+import com.springboot.core.web.mvc.Page;
 
 /**
  * 日志业务层实现类
@@ -27,20 +26,22 @@ public class LogService implements ILogService {
 	private ILogDao logDao;
 
 	@Override
-	public JqGridPage<BLog> queryPage(BLogVO vo) {
+	public Page<BLog> queryPage(BLogVO vo) {
 		if (vo == null) {
 			throw new AuthException("参数不能为空");
 		}
-		if (StringUtils.isBlank(vo.getStarttime())
-				|| StringUtils.isBlank(vo.getEndtime())) {
-			throw new AuthException("请选择时间范围");
+		if (vo.getDateRange() == null || vo.getDateRange().length < 2) {
+			vo.setStarttime(DateUtils.getDate());
+			vo.setEndtime(DateUtils.getDate());
+		} else {
+			vo.setStarttime(vo.getDateRange()[0]);
+			vo.setEndtime(vo.getDateRange()[1]);
 		}
-		if (DateUtils.differentDays(
-				DateUtils.formatDateTime(vo.getStarttime()),
-				DateUtils.formatDateTime(vo.getEndtime())) > 1
+		if (DateUtils.differentDays(DateUtils.formatDate(vo.getStarttime()),
+				DateUtils.formatDate(vo.getEndtime())) > 1
 				|| DateUtils.differentDays(
-						DateUtils.formatDateTime(vo.getStarttime()),
-						DateUtils.formatDateTime(vo.getEndtime())) < 0) {
+						DateUtils.formatDate(vo.getStarttime()),
+						DateUtils.formatDate(vo.getEndtime())) < 0) {
 			throw new AuthException("时间范围不能大于一天");
 		}
 		return logDao.selectPage(vo);

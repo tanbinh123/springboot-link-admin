@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.springboot.core.jdbc.annotation.Columns;
 import com.springboot.core.jdbc.annotation.Tables;
-import com.springboot.core.web.mvc.JqGridParam;
+import com.springboot.core.web.mvc.PageParam;
 /**
  * 用户表
 * @ClassName: UserInfo 
@@ -15,7 +15,7 @@ import com.springboot.core.web.mvc.JqGridParam;
 *
  */
 @Tables(table = "t_sys_user")
-public class UserInfo extends JqGridParam {
+public class UserInfo extends PageParam {
 
 	@Columns(column = "uid", primaryKey = true, autoIncrement = false)
 	private String uid;

@@ -1,12 +1,6 @@
 package com.springboot.core.security.requestlimt;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.Method;
-import java.util.concurrent.TimeUnit;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -14,15 +8,13 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.springboot.common.AppContext;
-import com.springboot.common.utils.HttpUtils;
 import com.springboot.common.utils.IPUtils;
+import com.springboot.core.SysManager;
+import com.springboot.core.exception.RequestLimitException;
 import com.springboot.core.logger.LoggerUtil;
 import com.springboot.core.redis.IRedis;
-import com.springboot.core.redis.RedisUtils;
+import com.springboot.core.web.spring.SpringMVCUtil;
 
 /**
  * 请求频率限制
@@ -44,19 +36,17 @@ public class RequestLimitAspect {
 	 * 定义拦截规则：拦截com.springboot.bcode.api包下面的所有类中，有@RequestLimit Annotation注解的方法
 	 * 。
 	 */
-	@Around("execution(* com.springboot.bcode.api..*(..)) "
+	@Around("execution(* com.springboot..*.*(..)) "
 			+ "and @annotation(com.springboot.core.security.requestlimt.RequestLimit)")
 	public Object method(ProceedingJoinPoint pjp) throws Throwable {
 
-		MethodSignature signature = (MethodSignature) pjp.getSignature();
-		Method method = signature.getMethod(); // 获取被拦截的方法
-		RequestLimit limt = method.getAnnotation(RequestLimit.class);
-		// No request for limt,continue processing request
+		RequestLimit limt = ((MethodSignature) pjp.getSignature()).getMethod()
+				.getAnnotation(RequestLimit.class);
 		if (limt == null) {
 			return pjp.proceed();
 		}
 
-		HttpServletRequest request = HttpUtils.getRequest();
+		HttpServletRequest request = SpringMVCUtil.getRequest();
 
 		int time = limt.time();
 		int count = limt.count();
@@ -65,16 +55,14 @@ public class RequestLimitAspect {
 		String ip = IPUtils.getIpAddr(request);
 		String url = request.getRequestURI();
 
-		// judge codition
 		String key = requestLimitKey(url, ip);
-		IRedis redis = RedisUtils.getRedis();
+		IRedis redis = SysManager.getRedis();
 		int nowCount = redis.get(key) == null ? 0 : Integer.valueOf(redis
 				.get(key));
 
 		if (nowCount == 0) {
 			nowCount++;
 			redis.set(key, String.valueOf(nowCount), time);
-			return pjp.proceed();
 		} else {
 			nowCount++;
 			redis.set(key, String.valueOf(nowCount));
@@ -82,8 +70,8 @@ public class RequestLimitAspect {
 				LoggerUtil.warn("用户IP[" + ip + "]访问地址[" + url + "]访问次数["
 						+ nowCount + "]超过了限定的次数[" + count + "]限定时间[" + waits
 						+ "秒]");
-				redis.expire(key, waits, TimeUnit.SECONDS);
-				return returnLimit(request);
+				redis.expire(key, waits);
+				throw new RequestLimitException("服务拒接请求");
 			}
 		}
 
@@ -105,28 +93,6 @@ public class RequestLimitAspect {
 		sb.append("_");
 		sb.append(ip);
 		return sb.toString();
-	}
-
-	/**
-	 * 返回拒绝信息
-	 * 
-	 * @param request
-	 * @return
-	 * @throws IOException
-	 */
-	private String returnLimit(HttpServletRequest request) throws IOException {
-
-		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder
-				.getRequestAttributes()).getResponse();
-		PrintWriter out = response.getWriter();
-		response.setCharacterEncoding("utf-8");
-		response.setContentType("application/json; charset=utf-8");
-		out.println("{\"code\":" + AppContext.CODE_50004
-				+ ",\"msg\":\"Service reject request!\"}");
-		out.flush();
-		out.close();
-		return null;
-
 	}
 
 }

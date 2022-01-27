@@ -8,7 +8,7 @@ import com.springboot.authorize.dao.IDictDao;
 import com.springboot.authorize.domain.auth.Dict;
 import com.springboot.common.utils.StringUtils;
 import com.springboot.core.jdbc.BaseDaoImpl;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.web.mvc.Page;
 
 /**
  * 字典数据持久层实现类
@@ -22,13 +22,13 @@ import com.springboot.core.web.mvc.JqGridPage;
 @Repository
 public class DictDao extends BaseDaoImpl implements IDictDao {
 	@Override
-	public JqGridPage<Dict> selectPage(Dict dict) {
+	public Page<Dict> selectPage(Dict dict) {
 		List<Dict> list = super.select(
 				getSqlPageHandle().handlerPagingSQL(pageSql(dict, 0),
 						dict.getPage(), dict.getLimit()), null, Dict.class);
 		int count = super.jdbcTemplate.queryForObject(pageSql(dict, 1), null,
 				Integer.class);
-		JqGridPage<Dict> page = new JqGridPage<Dict>(list, count,
+		Page<Dict> page = new Page<Dict>(list, count,
 				dict.getLimit(), dict.getPage());
 		return page;
 	}

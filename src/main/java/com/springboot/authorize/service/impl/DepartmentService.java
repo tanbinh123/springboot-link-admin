@@ -12,9 +12,9 @@ import com.springboot.authorize.domain.auth.Department;
 import com.springboot.authorize.service.IDepartmentService;
 import com.springboot.common.AppContext;
 import com.springboot.common.algorithm.DepartmentAlgorithm;
-import com.springboot.common.exception.AuthException;
 import com.springboot.common.utils.BeanUtils;
-import com.springboot.core.redis.RedisUtils;
+import com.springboot.core.SysManager;
+import com.springboot.core.exception.AuthException;
 
 /**
  * 部门业务层实现类
@@ -39,7 +39,7 @@ public class DepartmentService implements IDepartmentService {
 	@Override
 	public List<Department> queryAllCompany() {
 		List<Department> companylList = new ArrayList<Department>();
-		String departmentStr = RedisUtils.getRedis().get(
+		String departmentStr = SysManager.getRedis().get(
 				AppContext.Department_Key);
 		List<Department> allDeptList = JSONArray.parseArray(departmentStr,
 				Department.class);
@@ -54,7 +54,7 @@ public class DepartmentService implements IDepartmentService {
 	@Override
 	public List<Department> queryAllChild(Integer parentId) {
 		List<Department> deptList = new ArrayList<Department>();
-		String departmentStr = RedisUtils.getRedis().get(
+		String departmentStr = SysManager.getRedis().get(
 				AppContext.Department_Key);
 		List<Department> allDeptList = JSONArray.parseArray(departmentStr,
 				Department.class);
@@ -90,7 +90,7 @@ public class DepartmentService implements IDepartmentService {
 		// 更新redis
 		List<Department> deptList = departmentDao.selectAll();
 		if (deptList != null && deptList.isEmpty()) {
-			RedisUtils.getRedis().set(AppContext.Department_Key,
+			SysManager.getRedis().set(AppContext.Department_Key,
 					JSONArray.toJSONString(deptList));
 		}
 
@@ -112,7 +112,7 @@ public class DepartmentService implements IDepartmentService {
 		// 更新redis
 		List<Department> deptList = departmentDao.selectAll();
 		if (deptList != null && deptList.isEmpty()) {
-			RedisUtils.getRedis().set(AppContext.Department_Key,
+			SysManager.getRedis().set(AppContext.Department_Key,
 					JSONArray.toJSONString(deptList));
 		}
 		return true;
@@ -134,7 +134,7 @@ public class DepartmentService implements IDepartmentService {
 		// 更新redis
 		List<Department> deptList = departmentDao.selectAll();
 		if (deptList != null && deptList.isEmpty()) {
-			RedisUtils.getRedis().set(AppContext.Department_Key,
+			SysManager.getRedis().set(AppContext.Department_Key,
 					JSONArray.toJSONString(deptList));
 		}
 		return true;

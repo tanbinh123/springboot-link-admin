@@ -1,8 +1,8 @@
 package com.springboot.authorize.domain.auth;
 
-import com.springboot.core.web.mvc.JqGridParam;
+import com.springboot.core.web.mvc.PageParam;
 
-public class UserInfoVO extends JqGridParam {
+public class UserInfoVO extends PageParam {
 	private String uid;
 	private String name;
 	private String password;

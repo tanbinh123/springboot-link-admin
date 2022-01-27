@@ -5,7 +5,7 @@ import java.util.List;
 import com.springboot.authorize.domain.auth.Role;
 import com.springboot.authorize.domain.auth.RoleDept;
 import com.springboot.authorize.domain.auth.RolePermission;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.web.mvc.Page;
 /**
  * 角色接口
 * @ClassName: IRoleDao 
@@ -15,7 +15,7 @@ import com.springboot.core.web.mvc.JqGridPage;
 *
  */
 public interface IRoleDao {
-	JqGridPage<Role> selectPage(Role role);
+	Page<Role> selectPage(Role role);
 
 	List<Role> selectByUserId(String userId);
 

@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.authorize.domain.auth.Dict;
 import com.springboot.authorize.service.IDictService;
-import com.springboot.common.exception.SystemException;
-import com.springboot.core.logger.LoggerUtil;
 import com.springboot.core.logger.OpertionBLog;
-import com.springboot.core.security.authorize.Requestauthorize;
+import com.springboot.core.security.permission.CheckPermission;
 import com.springboot.core.web.mvc.BaseRest;
 import com.springboot.core.web.mvc.ResponseResult;
 
@@ -34,29 +32,13 @@ public class DictRest extends BaseRest {
 
 	@RequestMapping(value = "list", method = RequestMethod.POST)
 	public ResponseResult list(@RequestBody Dict dict) {
-		ResponseResult rep = new ResponseResult();
-		try {
-			rep.setResult(dictService.queryPage(dict));
-		} catch (SystemException e) {
-			LoggerUtil.error(e.getMessage());
-		} catch (Exception e) {
-			LoggerUtil.error(e.getMessage());
-		}
-		return rep;
+		return ResponseResult.success(dictService.queryPage(dict));
 
 	}
 
 	@RequestMapping(value = "info")
 	public ResponseResult info(@RequestParam("type") String type) {
-		ResponseResult rep = new ResponseResult();
-		try {
-			rep.setResult(dictService.queryByType(type));
-		} catch (SystemException e) {
-			LoggerUtil.error(e.getMessage());
-		} catch (Exception e) {
-			LoggerUtil.error(e.getMessage());
-		}
-		return rep;
+		return ResponseResult.success(dictService.queryByType(type));
 
 	}
 
@@ -67,22 +49,11 @@ public class DictRest extends BaseRest {
 	 * @return
 	 */
 	@OpertionBLog(title = "新增字典")
-	@Requestauthorize("dict:add")
+	@CheckPermission("dict:add")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public ResponseResult add(@RequestBody Dict dict) {
-		ResponseResult rep = new ResponseResult();
-		try {
-			dictService.add(dict);
-		} catch (SystemException e) {
-			rep.setCode(CODE_500);
-			rep.setMsg(e.getMessage());
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			rep.setMsg("系统异常.请稍后再试");
-			LoggerUtil.error(e.getMessage());
-		}
-
-		return rep;
+		dictService.add(dict);
+		return ResponseResult.success();
 	}
 
 	/**
@@ -92,21 +63,11 @@ public class DictRest extends BaseRest {
 	 * @return
 	 */
 	@OpertionBLog(title = "修改字典")
-	@Requestauthorize("dict:edit")
+	@CheckPermission("dict:edit")
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public ResponseResult update(@RequestBody Dict dict) {
-		ResponseResult rep = new ResponseResult();
-		try {
-			dictService.update(dict);
-		} catch (SystemException e) {
-			rep.setCode(CODE_500);
-			rep.setMsg(e.getMessage());
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			rep.setMsg("系统异常.请稍后再试");
-			LoggerUtil.error(e.getMessage());
-		}
-		return rep;
+		dictService.update(dict);
+		return ResponseResult.success();
 	}
 
 	/**
@@ -116,21 +77,11 @@ public class DictRest extends BaseRest {
 	 * @return
 	 */
 	@OpertionBLog(title = "删除字典")
-	@Requestauthorize("dict:del")
+	@CheckPermission("dict:del")
 	@RequestMapping(value = "delete")
 	public ResponseResult delete(@RequestParam("id") Integer id) {
-		ResponseResult rep = new ResponseResult();
-		try {
-			dictService.delete(id);
-		} catch (SystemException e) {
-			rep.setCode(CODE_500);
-			rep.setMsg(e.getMessage());
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			rep.setMsg("系统异常.请稍后再试");
-			LoggerUtil.error(e.getMessage());
-		}
-		return rep;
+		dictService.delete(id);
+		return ResponseResult.success();
 	}
 
 }

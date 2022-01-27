@@ -3,7 +3,7 @@ package com.springboot.authorize.service;
 import java.util.List;
 
 import com.springboot.authorize.domain.auth.Permission;
-import com.springboot.common.exception.AuthException;
+import com.springboot.core.exception.AuthException;
 
 /**
  * 权限业务层接口

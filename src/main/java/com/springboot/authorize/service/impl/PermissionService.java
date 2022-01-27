@@ -15,9 +15,9 @@ import com.springboot.authorize.dao.IUserDao;
 import com.springboot.authorize.domain.auth.Permission;
 import com.springboot.authorize.domain.auth.RolePermission;
 import com.springboot.authorize.service.IPermissionService;
-import com.springboot.common.exception.AuthException;
 import com.springboot.common.utils.BeanUtils;
 import com.springboot.common.utils.StringUtils;
+import com.springboot.core.exception.AuthException;
 
 /**
  * 权限业务层实现类

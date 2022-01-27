@@ -8,18 +8,18 @@ import com.springboot.bcode.dao.IVideoDao;
 import com.springboot.bcode.domain.video.Video;
 import com.springboot.common.utils.StringUtils;
 import com.springboot.core.jdbc.BaseDaoImpl;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.web.mvc.Page;
 
 @Repository
 public class VideoDao extends BaseDaoImpl implements IVideoDao {
 	@Override
-	public JqGridPage<Video> selectPage(Video video) {
+	public Page<Video> selectPage(Video video) {
 		List<Video> list = super.select(
 				getSqlPageHandle().handlerPagingSQL(pageSql(video, 0),
 						video.getPage(), video.getLimit()), null, Video.class);
 		int count = super.jdbcTemplate.queryForObject(pageSql(video, 1), null,
 				Integer.class);
-		JqGridPage<Video> page = new JqGridPage<Video>(list, count,
+		Page<Video> page = new Page<Video>(list, count,
 				video.getLimit(), video.getPage());
 		return page;
 	}

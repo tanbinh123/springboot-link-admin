@@ -3,7 +3,7 @@ package com.springboot.authorize.dao;
 import java.util.List;
 
 import com.springboot.authorize.domain.auth.Dict;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.web.mvc.Page;
 /**
  * 字典接口
 * @ClassName: IDictDao 
@@ -13,7 +13,7 @@ import com.springboot.core.web.mvc.JqGridPage;
 *
  */
 public interface IDictDao {
-	JqGridPage<Dict> selectPage(Dict dict);
+	Page<Dict> selectPage(Dict dict);
 
 	List<Dict> select(Dict dict);
 

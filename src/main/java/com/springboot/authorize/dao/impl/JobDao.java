@@ -8,7 +8,7 @@ import com.springboot.authorize.dao.IJobDao;
 import com.springboot.authorize.domain.auth.Job;
 import com.springboot.common.utils.StringUtils;
 import com.springboot.core.jdbc.BaseDaoImpl;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.web.mvc.Page;
 
 /**
  * 岗位数据持久层实现类
@@ -23,13 +23,13 @@ import com.springboot.core.web.mvc.JqGridPage;
 public class JobDao extends BaseDaoImpl implements IJobDao {
 
 	@Override
-	public JqGridPage<Job> selectPage(Job job) {
+	public Page<Job> selectPage(Job job) {
 		List<Job> list = super.select(
 				getSqlPageHandle().handlerPagingSQL(pageSql(job, 0),
 						job.getPage(), job.getLimit()), null, Job.class);
 		int count = super.jdbcTemplate.queryForObject(pageSql(job, 1), null,
 				Integer.class);
-		JqGridPage<Job> page = new JqGridPage<Job>(list, count, job.getLimit(),
+		Page<Job> page = new Page<Job>(list, count, job.getLimit(),
 				job.getPage());
 		return page;
 	}

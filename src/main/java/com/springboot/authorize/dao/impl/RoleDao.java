@@ -10,7 +10,7 @@ import com.springboot.authorize.domain.auth.RoleDept;
 import com.springboot.authorize.domain.auth.RolePermission;
 import com.springboot.common.utils.StringUtils;
 import com.springboot.core.jdbc.BaseDaoImpl;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.web.mvc.Page;
 
 /**
  * 角色数据持久层实现类
@@ -24,13 +24,13 @@ import com.springboot.core.web.mvc.JqGridPage;
 @Repository
 public class RoleDao extends BaseDaoImpl implements IRoleDao {
 	@Override
-	public JqGridPage<Role> selectPage(Role role) {
+	public Page<Role> selectPage(Role role) {
 		List<Role> list = super.select(
 				getSqlPageHandle().handlerPagingSQL(rolePageSql(role, 0),
 						role.getPage(), role.getLimit()), null, Role.class);
 		int count = super.jdbcTemplate.queryForObject(rolePageSql(role, 1),
 				null, Integer.class);
-		JqGridPage<Role> page = new JqGridPage<Role>(list, count,
+		Page<Role> page = new Page<Role>(list, count,
 				role.getLimit(), role.getPage());
 		return page;
 	}

@@ -2,7 +2,7 @@ package com.springboot.authorize.dao;
 
 import com.springboot.authorize.domain.logs.BLog;
 import com.springboot.authorize.domain.logs.BLogVO;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.web.mvc.Page;
 /**
  * 日志接口
 * @ClassName: ILogDao 
@@ -13,7 +13,7 @@ import com.springboot.core.web.mvc.JqGridPage;
  */
 public interface ILogDao {
 
-	JqGridPage<BLog> selectPage(BLogVO  log);
+	Page<BLog> selectPage(BLogVO  log);
 
 	int insert(BLog log);
 

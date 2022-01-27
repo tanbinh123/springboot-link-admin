@@ -3,7 +3,7 @@ package com.springboot.authorize.service;
 import java.util.List;
 
 import com.springboot.authorize.domain.auth.Dict;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.web.mvc.Page;
 
 /**
  * 字典业务层接口
@@ -16,7 +16,7 @@ import com.springboot.core.web.mvc.JqGridPage;
  */
 public interface IDictService {
 
-	JqGridPage<Dict> queryPage(Dict dict);
+	Page<Dict> queryPage(Dict dict);
 
 	List<Dict> queryByType(String type);
 

@@ -4,7 +4,7 @@ import com.springboot.authorize.domain.auth.LoginVO;
 import com.springboot.authorize.domain.auth.ModifyPwdVO;
 import com.springboot.authorize.domain.auth.UserInfo;
 import com.springboot.authorize.domain.auth.UserInfoVO;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.web.mvc.Page;
 
 /**
  * 用户业务层接口
@@ -17,9 +17,9 @@ import com.springboot.core.web.mvc.JqGridPage;
  */
 public interface IUserService {
 
-	JqGridPage<UserInfo> queryPage(UserInfo user);
+	Page<UserInfo> queryPage(UserInfo user);
 
-	String login(LoginVO vo) throws Exception;
+	String login(LoginVO vo);
 
 	UserInfo info();
 

@@ -6,6 +6,14 @@ import com.springboot.common.utils.StringUtils;
 import com.springboot.core.jdbc.JdbcException;
 import com.springboot.core.jdbc.annotation.Tables;
 
+/**
+ * 
+ * @ClassName: SqlUtils
+ * @Description: TODO(这里用一句话描述这个类的作用)
+ * @author 252956
+ * @date 2022年1月20日 下午4:09:15
+ *
+ */
 public class SqlUtils {
 
 	public static <T> void validateTargetClass(T entity) {

@@ -15,10 +15,10 @@ import com.springboot.authorize.domain.auth.RoleDept;
 import com.springboot.authorize.domain.auth.RolePermission;
 import com.springboot.authorize.service.IRoleService;
 import com.springboot.common.constant.DataScopeType;
-import com.springboot.common.exception.AuthException;
 import com.springboot.common.utils.BeanUtils;
 import com.springboot.common.utils.StringUtils;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.exception.AuthException;
+import com.springboot.core.web.mvc.Page;
 
 /**
  * 角色业务层实现类
@@ -40,7 +40,7 @@ public class RoleService implements IRoleService {
 	private IRoleDao roleDao;
 
 	@Override
-	public JqGridPage<Role> queryPage(Role role) {
+	public Page<Role> queryPage(Role role) {
 		return roleDao.selectPage(role);
 	}
 

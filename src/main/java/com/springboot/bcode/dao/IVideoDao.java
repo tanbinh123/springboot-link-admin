@@ -2,10 +2,10 @@ package com.springboot.bcode.dao;
 
 
 import com.springboot.bcode.domain.video.Video;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.web.mvc.Page;
 
 public interface IVideoDao {
-	JqGridPage<Video> selectPage(Video video);
+	Page<Video> selectPage(Video video);
 	
 	Video select(Video video);
 

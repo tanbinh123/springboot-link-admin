@@ -3,7 +3,7 @@ package com.springboot.authorize.service;
 import java.util.List;
 
 import com.springboot.authorize.domain.auth.Job;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.web.mvc.Page;
 
 /**
  * 岗位业务层接口
@@ -16,7 +16,7 @@ import com.springboot.core.web.mvc.JqGridPage;
  */
 public interface IJobService {
 
-	JqGridPage<Job> queryPage(Job job);
+	Page<Job> queryPage(Job job);
 
 	List<Job> queryAll();
 

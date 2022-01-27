@@ -2,7 +2,7 @@ package com.springboot.authorize.service;
 
 import com.springboot.authorize.domain.logs.BLog;
 import com.springboot.authorize.domain.logs.BLogVO;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.web.mvc.Page;
 
 /**
  * 日志业务层接口
@@ -15,5 +15,5 @@ import com.springboot.core.web.mvc.JqGridPage;
 
 public interface ILogService {
 
-	JqGridPage<BLog> queryPage(BLogVO vo);
+	Page<BLog> queryPage(BLogVO vo);
 }

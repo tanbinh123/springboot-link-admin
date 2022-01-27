@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import com.springboot.authorize.dao.IJobDao;
 import com.springboot.authorize.domain.auth.Job;
 import com.springboot.authorize.service.IJobService;
-import com.springboot.common.exception.AuthException;
 import com.springboot.common.utils.StringUtils;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.exception.AuthException;
+import com.springboot.core.web.mvc.Page;
 
 /**
  * 岗位业务层实现类
@@ -27,7 +27,7 @@ public class JobService implements IJobService {
 	private IJobDao jobDao;
 
 	@Override
-	public JqGridPage<Job> queryPage(Job job) {
+	public Page<Job> queryPage(Job job) {
 		if (job == null) {
 			throw new AuthException("参数不能为空");
 		}

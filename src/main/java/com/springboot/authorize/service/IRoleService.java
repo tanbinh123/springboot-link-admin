@@ -3,8 +3,8 @@ package com.springboot.authorize.service;
 import java.util.List;
 
 import com.springboot.authorize.domain.auth.Role;
-import com.springboot.common.exception.AuthException;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.exception.AuthException;
+import com.springboot.core.web.mvc.Page;
 
 /**
  * 角色业务层接口
@@ -17,7 +17,7 @@ import com.springboot.core.web.mvc.JqGridPage;
  */
 public interface IRoleService {
 
-	JqGridPage<Role> queryPage(Role role);
+	Page<Role> queryPage(Role role);
 
 	List<Role> queryAll() throws AuthException;
 

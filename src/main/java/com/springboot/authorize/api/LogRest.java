@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.authorize.domain.logs.BLogVO;
 import com.springboot.authorize.service.ILogService;
-import com.springboot.common.exception.AuthException;
-import com.springboot.core.logger.LoggerUtil;
-import com.springboot.core.security.authorize.Requestauthorize;
+import com.springboot.core.security.permission.CheckPermission;
 import com.springboot.core.web.mvc.BaseRest;
 import com.springboot.core.web.mvc.ResponseResult;
 
@@ -29,21 +27,9 @@ public class LogRest extends BaseRest {
 	@Autowired
 	private ILogService logService;
 
-	@Requestauthorize("blog:list")
+	@CheckPermission("blog:list")
 	@RequestMapping(value = "/blog/list", method = RequestMethod.POST)
 	public ResponseResult list(@RequestBody BLogVO vo) {
-		ResponseResult rep = new ResponseResult();
-		try {
-			rep.setResult(logService.queryPage(vo));
-		} catch (AuthException e) {
-			rep.setCode(CODE_500);
-			rep.setMsg(e.getMessage());
-		} catch (Exception e) {
-			rep.setCode(CODE_500);
-			rep.setMsg("系统异常.请稍后再试");
-			LoggerUtil.error(e.getMessage());
-		}
-		return rep;
-
+		return ResponseResult.success(logService.queryPage(vo));
 	}
 }

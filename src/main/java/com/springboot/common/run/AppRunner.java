@@ -5,15 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
 import com.springboot.authorize.dao.IDepartmentDao;
 import com.springboot.authorize.domain.auth.Department;
 import com.springboot.common.AppContext;
-import com.springboot.common.config.RsaProperties;
-import com.springboot.core.redis.RedisUtils;
+import com.springboot.core.SysManager;
 
 /**
  * 服务启动后执行的代码
@@ -30,17 +28,9 @@ public class AppRunner implements ApplicationRunner {
 	@Autowired
 	private IDepartmentDao departmentDao;
 
-	@Autowired
-	private Environment env;
-
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		loadConfig();
 		loadAllDept();
-	}
-
-	private void loadConfig() {
-		RsaProperties.privateKey = env.getProperty("linkadmin.private.key");
 	}
 
 	/**
@@ -53,7 +43,7 @@ public class AppRunner implements ApplicationRunner {
 	private void loadAllDept() {
 		List<Department> deptList = departmentDao.selectAll();
 		if (deptList != null && !deptList.isEmpty()) {
-			RedisUtils.getRedis().set(AppContext.Department_Key,
+			SysManager.getRedis().set(AppContext.Department_Key,
 					JSON.toJSONString(deptList));
 		}
 

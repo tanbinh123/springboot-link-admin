@@ -10,7 +10,6 @@ package com.springboot.common;
  */
 public class AppContext {
 
-	public static final String TOKEN = "LinkAdmin-Token";
 
 	public static final String Department_Key = "linkadmin_department_key";
 

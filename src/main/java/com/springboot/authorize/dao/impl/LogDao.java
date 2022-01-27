@@ -9,7 +9,7 @@ import com.springboot.authorize.domain.logs.BLog;
 import com.springboot.authorize.domain.logs.BLogVO;
 import com.springboot.common.utils.StringUtils;
 import com.springboot.core.jdbc.BaseDaoImpl;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.web.mvc.Page;
 
 /**
  * 业务日志数据持久层实现类
@@ -24,14 +24,14 @@ import com.springboot.core.web.mvc.JqGridPage;
 public class LogDao extends BaseDaoImpl implements ILogDao {
 
 	@Override
-	public JqGridPage<BLog> selectPage(BLogVO log) {
+	public Page<BLog> selectPage(BLogVO log) {
 
 		List<BLog> list = super.select(
 				getSqlPageHandle().handlerPagingSQL(logPageSql(log, 0),
 						log.getPage(), log.getLimit()), null, BLog.class);
 		int count = super.jdbcTemplate.queryForObject(logPageSql(log, 1), null,
 				Integer.class);
-		JqGridPage<BLog> page = new JqGridPage<BLog>(list, count,
+		Page<BLog> page = new Page<BLog>(list, count,
 				log.getLimit(), log.getPage());
 		return page;
 	}
@@ -45,9 +45,11 @@ public class LogDao extends BaseDaoImpl implements ILogDao {
 		}
 		sql.append(" where 1=1");
 
-		sql.append(" and createtime >='" + log.getStarttime() + "'");
+		sql.append(" and DATE_FORMAT(createtime,'%Y-%m-%d') >='"
+				+ log.getStarttime() + "'");
 
-		sql.append(" and createtime <='" + log.getEndtime() + "'");
+		sql.append(" and DATE_FORMAT(createtime,'%Y-%m-%d') <='"
+				+ log.getEndtime() + "'");
 
 		if (StringUtils.isNotBlank(log.getLoginuser())) {
 			sql.append(" and loginuser like '%").append(

@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import com.springboot.authorize.dao.IDictDao;
 import com.springboot.authorize.domain.auth.Dict;
 import com.springboot.authorize.service.IDictService;
-import com.springboot.common.exception.SystemException;
 import com.springboot.common.utils.BeanUtils;
 import com.springboot.common.utils.StringUtils;
-import com.springboot.core.web.mvc.JqGridPage;
+import com.springboot.core.exception.SystemException;
+import com.springboot.core.web.mvc.Page;
 
 /**
  * 字典业务层实现类
@@ -29,7 +29,7 @@ public class DictService implements IDictService {
 	private IDictDao dictDao;
 
 	@Override
-	public JqGridPage<Dict> queryPage(Dict dict) {
+	public Page<Dict> queryPage(Dict dict) {
 		return dictDao.selectPage(dict);
 	}
 
